@@ -1,0 +1,17 @@
+Package: ghql
+Type: Package
+Title: Github GraphQL Client
+Description: Github GraphQL Client.
+Version: 0.0.1.9000
+Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
+    email = "myrmecocystus@gmail.com"))
+License: MIT + file LICENSE
+URL: https://github.com/ropensci/ghql
+BugReports: https://github.com/ropensci/ghql/issues
+Imports:
+    httr (>= 1.2.0),
+    jsonlite (>= 1.0)
+Suggests:
+    roxygen2 (>= 5.0.1),
+    testthat
+RoxygenNote: 5.0.1
