@@ -2,7 +2,7 @@ Package: ghql
 Type: Package
 Title: Github GraphQL Client
 Description: Github GraphQL Client.
-Version: 0.0.1.9000
+Version: 0.0.1.9400
 Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com"))
 License: MIT + file LICENSE

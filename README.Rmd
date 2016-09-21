@@ -1,15 +1,24 @@
 ghql
 ====
 
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
 `ghql` - github GraphQL API client
 
 [Github GraphQL API](https://developer.github.com/early-access/graphql/)
 
 ## Authentication
 
-See <https://developer.github.com/early-access/graphql/guides/accessing-graphql/> for getting an OAuth token. 
+See <https://developer.github.com/early-access/graphql/guides/accessing-graphql/> for getting an OAuth token.
 
-Store the token in a env var called `GITHUB_GRAPHQL_TOKEN` 
+Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
 before trying this pkg.
 
 ## Install
@@ -25,10 +34,30 @@ library("ghql")
 library("jsonlite")
 ```
 
-## query
+## basic query
 
 ```{r}
-ql('{"query": "query { viewer { login }}"}')
+ql('query { viewer { login }}')
+```
+
+## more complex query
+
+```{r}
+qry <- '{
+  repositoryOwner(login:"sckott") {
+    repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {
+      edges {
+        node {
+          name
+          stargazers {
+            totalCount
+          }
+        }
+      }
+    }
+  }
+}'
+ql(qry)
 ```
 
 ## Meta

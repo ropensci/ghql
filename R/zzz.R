@@ -5,9 +5,9 @@ ct <- function(x) Filter(Negate(is.null), x)
 gh_GET <- function(query, ...){
   temp <- httr::POST(
     gh_base(),
-    body = query,
+    body = list(query = query),
     ghql_auth(),
-    encode = "form",
+    encode = "json",
     ...)
   httr::stop_for_status(temp)
   temp
