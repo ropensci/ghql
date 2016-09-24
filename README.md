@@ -1,7 +1,7 @@
 ghql
 ====
 
-
+[![Build Status](https://travis-ci.org/ropensci/ghql.svg?branch=master)](https://travis-ci.org/ropensci/ghql)
 
 `ghql` - general purpose GraphQL client
 
