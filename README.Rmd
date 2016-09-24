@@ -51,6 +51,16 @@ cli <- graphql(
 )
 ```
 
+## load schema
+
+Since not every GraphQL server has a schema at the base URL, have to manually
+load the schema in this case
+
+```{r}
+cli$load_schema()
+```
+
+
 ## basic query
 
 ```{r}
@@ -85,6 +95,49 @@ cli$query_string
 
 ```{r}
 cli$exec()
+```
+
+## run a local GraphQL server
+
+* Copy the `server.js` file from this package located at `inst/server.js` somewhere on your machine. Can locate it on your machine like `system.file("js/server.js", package = "ghql")`. Or you can run the file from where it's at, up to you.
+* Make sure node is installed. If not, see <https://nodejs.org>
+* Run `node server.js`
+* Navigate to your browser - go to <localhost:4000/graphql>
+* Back in R, user that URL to connect
+
+```{r eval=FALSE}
+(cli <- graphql("http://localhost:4000/graphql"))
+#> <ghql client>
+#>   url: http://localhost:4000/graphql
+```
+
+```{r eval=FALSE}
+cli$query('{
+  __schema {
+    queryType {
+      name, 
+      fields {
+        name,
+        description
+      }
+    }
+  }
+}')
+```
+
+
+```{r eval=FALSE}
+cli$exec()
+#> $data
+#> $data$`__schema`
+#> $data$`__schema`$queryType
+#> $data$`__schema`$queryType$name
+#> [1] "Query"
+#> 
+#> $data$`__schema`$queryType$fields
+#>    name description
+#> 1 hello            
+#> 2  name 
 ```
 
 ## Meta

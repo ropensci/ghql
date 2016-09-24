@@ -102,7 +102,7 @@ GraphqlClient <- R6::R6Class(
     initialize = function(url, headers) {
       if (!missing(url)) self$url <- url
       if (!missing(headers)) self$headers <- headers
-      self$schema <- self$load_schema(self$url)
+      # self$load_schema(self$url)
     },
 
     print = function(...) {
@@ -115,8 +115,12 @@ GraphqlClient <- R6::R6Class(
       res$status_code
     },
 
-    load_schema = function(x, ...) {
-      parze(cont(gh_GET(x, self$headers, ...)))
+    load_schema = function(x = NULL, ...) {
+      self$schema <- parze(
+        cont(
+          gh_GET(if (is.null(x)) self$url else x, self$headers, ...)
+        )
+      )
     },
 
     schema2json = function(...) {
@@ -129,7 +133,7 @@ GraphqlClient <- R6::R6Class(
 
     exec = function(...) {
       self$result <- jsonlite::fromJSON(cont(
-        gh_POST(self$query_string, self$headers, ...)
+        gh_POST(self$url, self$query_string, self$headers, ...)
       ))
       return(self$result)
     },
