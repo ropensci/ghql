@@ -13,8 +13,10 @@ Imports:
     jsonlite (>= 1.0),
     magrittr,
     lazyeval,
-    R6
+    R6,
+    graphql
 Suggests:
     roxygen2 (>= 5.0.1),
     testthat
+Remotes: ropensci/graphql
 RoxygenNote: 5.0.1

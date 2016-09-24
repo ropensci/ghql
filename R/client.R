@@ -7,14 +7,23 @@
 #'
 #' @return a \code{GraphqlClient} class (R6 class)
 #'
-#' @section etcd methods:
+#' @section methods:
 #' \strong{Methods}
 #'   \describe{
 #'     \item{\code{ping()}}{
 #'      ping the GraphQL server, return HTTP status code
 #'     }
+#'     \item{\code{load_schema()}}{
+#'      manually load schema, from URL or local file
+#'     }
 #'     \item{\code{schema2json()}}{
 #'      convert schema to JSON
+#'     }
+#'     \item{\code{query()}}{
+#'      define query in a character string
+#'     }
+#'     \item{\code{parse_2json()}}{
+#'      parse query string with libgraphqlparser and get back JSON
 #'     }
 #'   }
 #'
@@ -70,6 +79,9 @@
 #' cli$query_string
 #' ### execute the query
 #' cli$exec()
+#' ### parse query string to JSON (with libgraphqlparser)
+#' (json <- cli$parse_2json())
+#' jsonlite::fromJSON(json)
 #' }
 graphql <- function(url, headers) {
   GraphqlClient$new(url = url, headers = headers)
@@ -120,6 +132,10 @@ GraphqlClient <- R6::R6Class(
         gh_POST(self$query_string, self$headers, ...)
       ))
       return(self$result)
+    },
+
+    parse_2json = function() {
+      graphql::graphql2json(string = self$query_string)
     }
   )
 )
