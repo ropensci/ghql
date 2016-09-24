@@ -3,11 +3,15 @@ ghql
 
 
 
-`ghql` - github GraphQL API client
+`ghql` - general purpose GraphQL client
 
-[Github GraphQL API](https://developer.github.com/early-access/graphql/)
+GraphQL - <http://graphql.org>
 
-## Authentication
+Examples of GraphQL APIs:
+
+* [Github GraphQL API](https://developer.github.com/early-access/graphql/)
+
+## Github Authentication
 
 See <https://developer.github.com/early-access/graphql/guides/accessing-graphql/> for getting an OAuth token.
 
@@ -29,22 +33,40 @@ library("ghql")
 library("jsonlite")
 ```
 
+## initialize client
+
+
+```r
+library("httr")
+token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
+cli <- graphql(
+  url = "https://api.github.com/graphql",
+  headers = add_headers(Authorization = paste0("Bearer ", token))
+)
+```
+
 ## basic query
 
 
 ```r
-ql('query { viewer { login }}')
-#> $data
-#> $data$viewer
-#> $data$viewer$login
-#> [1] "sckott"
+cli$query('query { }')
+cli$query_string
+#> [1] "query { }"
 ```
+
+
+```r
+cli$exec()
+#> $data
+#> named list()
+```
+
 
 ## more complex query
 
 
 ```r
-qry <- '{
+cli$query('{
   repositoryOwner(login:"sckott") {
     repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {
       edges {
@@ -57,8 +79,14 @@ qry <- '{
       }
     }
   }
-}'
-ql(qry)
+}')
+cli$query_string
+#> [1] "{  repositoryOwner(login:\"sckott\") {    repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {      edges {        node {          name          stargazers {            totalCount          }        }      }    }  }}"
+```
+
+
+```r
+cli$exec()
 #> $data
 #> $data$repositoryOwner
 #> $data$repositoryOwner$repositories
@@ -68,7 +96,7 @@ ql(qry)
 #> 2          egnar               1
 #> 3       habanero              12
 #> 4          fluxy               0
-#> 5         pygbif               5
+#> 5         pygbif               6
 ```
 
 ## Meta
