@@ -10,19 +10,22 @@
 #' @section methods:
 #' \strong{Methods}
 #'   \describe{
-#'     \item{\code{ping()}}{
+#'     \item{\code{ping(...)}}{
 #'      ping the GraphQL server, return HTTP status code
 #'     }
-#'     \item{\code{load_schema()}}{
-#'      manually load schema, from URL or local file
+#'     \item{\code{load_schema(schema_url, schema_file)}}{
+#'      load schema, from URL or local file
 #'     }
-#'     \item{\code{schema2json()}}{
+#'     \item{\code{dump_schema(file)}}{
+#'      dump schema to a local file
+#'     }
+#'     \item{\code{schema2json(...)}}{
 #'      convert schema to JSON
 #'     }
-#'     \item{\code{query()}}{
+#'     \item{\code{query(x)}}{
 #'      define query in a character string
 #'     }
-#'     \item{\code{parse_2json()}}{
+#'     \item{\code{parse2json()}}{
 #'      parse query string with libgraphqlparser and get back JSON
 #'     }
 #'   }
@@ -37,6 +40,23 @@
 #'   url = "https://api.github.com/graphql",
 #'   headers = add_headers(Authorization = paste0("Bearer ", token))
 #' )
+#'
+#' # if the GraphQL server has a schema, you can load it
+#' cli$load_schema()
+#'
+#' # dump schema to local file
+#' f <- tempfile(fileext = ".json")
+#' cli$dump_schema(file = f)
+#' readLines(f)
+#' jsonlite::fromJSON(readLines(f))
+#'
+#' # after dumping to file, you can later read schema from file for faster loading
+#' rm(cli)
+#' cli <- graphql(
+#'   url = "https://api.github.com/graphql",
+#'   headers = add_headers(Authorization = paste0("Bearer ", token))
+#' )
+#' cli$load_schema(schema_file = f)
 #'
 #' # variables
 #' cli$url
@@ -115,12 +135,25 @@ GraphqlClient <- R6::R6Class(
       res$status_code
     },
 
-    load_schema = function(x = NULL, ...) {
-      self$schema <- parze(
-        cont(
-          gh_GET(if (is.null(x)) self$url else x, self$headers, ...)
+    load_schema = function(schema_url = NULL, schema_file = NULL, ...) {
+      if (!is.null(schema_url) || is.null(schema_file)) {
+        self$schema <- parze(
+          cont(
+            gh_GET(if (is.null(schema_url)) self$url else x, self$headers, ...)
+          )
         )
-      )
+      } else {
+        self$schema <- parze(schema_file)
+      }
+    },
+
+    dump_schema = function(file) {
+      schema <- self$schema2json()
+      if (schema == "{}") {
+        stop("schema is empty, see 'load_schema' first", call. = FALSE)
+      } else {
+        writeLines(schema, file)
+      }
     },
 
     schema2json = function(...) {
@@ -138,7 +171,7 @@ GraphqlClient <- R6::R6Class(
       return(self$result)
     },
 
-    parse_2json = function() {
+    parse2json = function() {
       graphql::graphql2json(string = self$query_string)
     }
   )

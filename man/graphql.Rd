@@ -22,19 +22,22 @@ ghql client
 
 \strong{Methods}
   \describe{
-    \item{\code{ping()}}{
+    \item{\code{ping(...)}}{
      ping the GraphQL server, return HTTP status code
     }
-    \item{\code{load_schema()}}{
-     manually load schema, from URL or local file
+    \item{\code{load_schema(schema_url, schema_file)}}{
+     load schema, from URL or local file
     }
-    \item{\code{schema2json()}}{
+    \item{\code{dump_schema(file)}}{
+     dump schema to a local file
+    }
+    \item{\code{schema2json(...)}}{
      convert schema to JSON
     }
-    \item{\code{query()}}{
+    \item{\code{query(x)}}{
      define query in a character string
     }
-    \item{\code{parse_2json()}}{
+    \item{\code{parse2json()}}{
      parse query string with libgraphqlparser and get back JSON
     }
   }
@@ -50,6 +53,23 @@ cli <- graphql(
   url = "https://api.github.com/graphql",
   headers = add_headers(Authorization = paste0("Bearer ", token))
 )
+
+# if the GraphQL server has a schema, you can load it
+cli$load_schema()
+
+# dump schema to local file
+f <- tempfile(fileext = ".json")
+cli$dump_schema(file = f)
+readLines(f)
+jsonlite::fromJSON(readLines(f))
+
+# after dumping to file, you can later read schema from file for faster loading
+rm(cli)
+cli <- graphql(
+  url = "https://api.github.com/graphql",
+  headers = add_headers(Authorization = paste0("Bearer ", token))
+)
+cli$load_schema(schema_file = f)
 
 # variables
 cli$url
