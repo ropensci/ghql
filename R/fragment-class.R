@@ -2,7 +2,6 @@
 #'
 #' @export
 #' @return a \code{Fragment} class (R6 class)
-#'
 #' @section methods:
 #' \strong{Methods}
 #'   \describe{
@@ -10,7 +9,8 @@
 #'      create a fragment by name
 #'     }
 #'   }
-#'
+#' @format NULL
+#' @usage NULL
 #' @examples \dontrun{
 #' # make a fragment class
 #' frag <- Fragment$new()
@@ -68,4 +68,5 @@ Fragment <- R6::R6Class(
   )
 )
 
+#' @export
 print.fragment <- function(x, ...) cat(gsub("^\n\\s+", "", x), "\n")

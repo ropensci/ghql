@@ -4,10 +4,6 @@
 \name{GraphqlClient}
 \alias{GraphqlClient}
 \title{ghql client}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-GraphqlClient
-}
 \arguments{
 \item{url}{(character) URL for the GraphQL schema}
 

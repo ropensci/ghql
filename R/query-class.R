@@ -1,10 +1,7 @@
 #' ghql query class
 #'
 #' @export
-#' @param query (character) query string
-#'
 #' @return a \code{Query} class (R6 class)
-#'
 #' @section methods:
 #' \strong{Methods}
 #'   \describe{
@@ -15,7 +12,8 @@
 #'      parse query string with libgraphqlparser and get back JSON
 #'     }
 #'   }
-#'
+#' @format NULL
+#' @usage NULL
 #' @examples \dontrun{
 #' # make a client
 #' qry <- Query$new()
@@ -192,6 +190,7 @@ make_query <- function(query = list(), fragment = list()) {
   )
 }
 
+#' @export
 print.query <- function(x, ...) {
   frock <- ""
   if (length(x$fragment)) {

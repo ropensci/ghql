@@ -4,13 +4,6 @@
 \name{Query}
 \alias{Query}
 \title{ghql query class}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-Query
-}
-\arguments{
-\item{query}{(character) query string}
-}
 \value{
 a \code{Query} class (R6 class)
 }

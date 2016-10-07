@@ -4,9 +4,9 @@
 #' @param url (character) URL for the GraphQL schema
 #' @param headers Any acceptable \pkg{httr} header, constructed typically
 #' via \code{\link[httr]{add_headers}}. See examples
-#'
 #' @return a \code{GraphqlClient} class (R6 class)
-#'
+#' @format NULL
+#' @usage NULL
 #' @section methods:
 #' \strong{Methods}
 #'   \describe{

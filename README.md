@@ -41,7 +41,7 @@ library("jsonlite")
 ```r
 library("httr")
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
-cli <- graphql(
+cli <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
   headers = add_headers(Authorization = paste0("Bearer ", token))
 )
@@ -60,26 +60,44 @@ cli$load_schema()
 
 ## basic query
 
+Make a `Query` class object
+
 
 ```r
-cli$query('query { }')
-cli$query_string
-#> [1] "query { }"
+qry <- Query$new()
 ```
 
 
 ```r
-cli$exec()
+qry$query('myquery', 'query { }')
+qry
+#> <ghql: query>
+#>   queries:
+#>     myquery
+qry$queries
+#> $myquery
+#>  
+#>  query { }
+qry$queries$myquery
+#>  
+#>  query { }
+```
+
+
+```r
+cli$exec(qry$queries$myquery)
 #> $data
 #> named list()
 ```
 
+Gives back no result, as we didn't ask for anything :)
 
-## more complex query
+
+## Get some actual data
 
 
 ```r
-cli$query('{
+qry$query('getdozedata', '{
   repositoryOwner(login:"sckott") {
     repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {
       edges {
@@ -93,23 +111,42 @@ cli$query('{
     }
   }
 }')
-cli$query_string
-#> [1] "{  repositoryOwner(login:\"sckott\") {    repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {      edges {        node {          name          stargazers {            totalCount          }        }      }    }  }}"
+qry
+#> <ghql: query>
+#>   queries:
+#>     myquery    
+#>     getdozedata
+qry$queries$getdozedata
+#>  
+#>  {
+#>   repositoryOwner(login:"sckott") {
+#>     repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {
+#>       edges {
+#>         node {
+#>           name
+#>           stargazers {
+#>             totalCount
+#>           }
+#>         }
+#>       }
+#>     }
+#>   }
+#> }
 ```
 
 
 ```r
-cli$exec()
+cli$exec(qry$queries$getdozedata)
 #> $data
 #> $data$repositoryOwner
 #> $data$repositoryOwner$repositories
 #> $data$repositoryOwner$repositories$edges
-#>        node.name node.totalCount
-#> 1 fishbasestatus               0
-#> 2          egnar               1
-#> 3       habanero              12
-#> 4          fluxy               0
-#> 5         pygbif               6
+#>             node.name node.totalCount
+#> 1   sckott.github.com               8
+#> 2 usdaplantsapistatus               0
+#> 3       usdaplantsapi              19
+#> 4            rforcats              34
+#> 5             soylocs               2
 ```
 
 ## run a local GraphQL server
@@ -117,19 +154,20 @@ cli$exec()
 * Copy the `server.js` file from this package located at `inst/server.js` somewhere on your machine. Can locate it on your machine like `system.file("js/server.js", package = "ghql")`. Or you can run the file from where it's at, up to you.
 * Make sure node is installed. If not, see <https://nodejs.org>
 * Run `node server.js`
-* Navigate to your browser - go to <localhost:4000/graphql>
+* Navigate to your browser - go to http://localhost:4000/graphql
 * Back in R, user that URL to connect
 
 
 ```r
-(cli <- graphql("http://localhost:4000/graphql"))
+(cli <- GraphqlClient$new("http://localhost:4000/graphql"))
 #> <ghql client>
 #>   url: http://localhost:4000/graphql
 ```
 
 
 ```r
-cli$query('{
+xxx <- Query$new()
+xxx$query('query', '{
   __schema {
     queryType {
       name, 
@@ -145,7 +183,7 @@ cli$query('{
 
 
 ```r
-cli$exec()
+cli$exec(xxx$queries$query)
 #> $data
 #> $data$`__schema`
 #> $data$`__schema`$queryType

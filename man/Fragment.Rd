@@ -4,10 +4,6 @@
 \name{Fragment}
 \alias{Fragment}
 \title{ghql fragment class}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-Fragment
-}
 \value{
 a \code{Fragment} class (R6 class)
 }

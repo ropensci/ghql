@@ -45,7 +45,7 @@ library("jsonlite")
 ```{r}
 library("httr")
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
-cli <- graphql(
+cli <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
   headers = add_headers(Authorization = paste0("Bearer ", token))
 )
@@ -63,20 +63,30 @@ cli$load_schema()
 
 ## basic query
 
+Make a `Query` class object
+
 ```{r}
-cli$query('query { }')
-cli$query_string
+qry <- Query$new()
 ```
 
 ```{r}
-cli$exec()
+qry$query('myquery', 'query { }')
+qry
+qry$queries
+qry$queries$myquery
 ```
 
+```{r}
+cli$exec(qry$queries$myquery)
+```
 
-## more complex query
+Gives back no result, as we didn't ask for anything :)
+
+
+## Get some actual data
 
 ```{r}
-cli$query('{
+qry$query('getdozedata', '{
   repositoryOwner(login:"sckott") {
     repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {
       edges {
@@ -90,11 +100,12 @@ cli$query('{
     }
   }
 }')
-cli$query_string
+qry
+qry$queries$getdozedata
 ```
 
 ```{r}
-cli$exec()
+cli$exec(qry$queries$getdozedata)
 ```
 
 ## run a local GraphQL server
@@ -106,13 +117,14 @@ cli$exec()
 * Back in R, user that URL to connect
 
 ```{r eval=FALSE}
-(cli <- graphql("http://localhost:4000/graphql"))
+(cli <- GraphqlClient$new("http://localhost:4000/graphql"))
 #> <ghql client>
 #>   url: http://localhost:4000/graphql
 ```
 
 ```{r eval=FALSE}
-cli$query('{
+xxx <- Query$new()
+xxx$query('query', '{
   __schema {
     queryType {
       name, 
@@ -127,7 +139,7 @@ cli$query('{
 
 
 ```{r eval=FALSE}
-cli$exec()
+cli$exec(xxx$queries$query)
 #> $data
 #> $data$`__schema`
 #> $data$`__schema`$queryType
