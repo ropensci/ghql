@@ -15,5 +15,6 @@ Imports:
     graphql
 Suggests:
     roxygen2 (>= 5.0.1),
-    testthat
+    testthat,
+    covr
 RoxygenNote: 5.0.1

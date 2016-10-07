@@ -1,10 +1,11 @@
 language: r
 cache: packages
 sudo: required
-
 dist: trusty
-
+env: R_CODECOV=true
 notifications:
   email:
     on_success: change
     on_failure: change
+after_success:
+  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
