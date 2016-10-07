@@ -11,8 +11,6 @@ BugReports: https://github.com/ropensci/ghql/issues
 Imports:
     httr (>= 1.2.0),
     jsonlite (>= 1.0),
-    magrittr,
-    lazyeval,
     R6,
     graphql
 Suggests:

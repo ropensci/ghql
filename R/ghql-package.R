@@ -3,7 +3,6 @@
 #' @description General purpose GraphQL client
 #'
 #' @name ghql-package
-#' @import lazyeval
 #' @aliases ghql
 #' @docType package
 #' @author Scott Chamberlain \email{myrmecocystus@@gmail.com}

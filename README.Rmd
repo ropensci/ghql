@@ -102,7 +102,7 @@ cli$exec()
 * Copy the `server.js` file from this package located at `inst/server.js` somewhere on your machine. Can locate it on your machine like `system.file("js/server.js", package = "ghql")`. Or you can run the file from where it's at, up to you.
 * Make sure node is installed. If not, see <https://nodejs.org>
 * Run `node server.js`
-* Navigate to your browser - go to <http://localhost:4000/graphql>
+* Navigate to your browser - go to http://localhost:4000/graphql
 * Back in R, user that URL to connect
 
 ```{r eval=FALSE}
