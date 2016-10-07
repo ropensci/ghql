@@ -2,7 +2,7 @@ Package: ghql
 Type: Package
 Title: General Purpose GraphQL Client
 Description: General purpose GraphQL client.
-Version: 0.0.2.9100
+Version: 0.0.3.9100
 Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com"))
 License: MIT + file LICENSE
@@ -18,5 +18,4 @@ Imports:
 Suggests:
     roxygen2 (>= 5.0.1),
     testthat
-Remotes: ropensci/graphql
 RoxygenNote: 5.0.1

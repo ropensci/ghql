@@ -16,7 +16,11 @@ GraphQL server. \code{\link{graphql}} also accepts various input parameters
 to set a base URL, and any headers required, which is usually the required
 set of things needed to connect to a GraphQL service.
 
-See \code{\link{graphql}} for more info.
+\code{\link{Query}} is an interface to creating GraphQL queries,
+which works together with \code{\link{graphql}}
+
+\code{\link{Fragment}} is an interface to creating GraphQL fragments,
+which works together with \code{\link{graphql}}
 }
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}

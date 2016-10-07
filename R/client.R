@@ -22,21 +22,15 @@
 #'     \item{\code{schema2json(...)}}{
 #'      convert schema to JSON
 #'     }
-#'     \item{\code{query(x)}}{
-#'      define query in a character string
-#'     }
-#'     \item{\code{parse2json()}}{
-#'      parse query string with libgraphqlparser and get back JSON
-#'     }
 #'   }
 #'
 #' @examples \dontrun{
 #' # make a client
-#' # cli <- graphql(url = "https://api.github.com/graphql")
+#' # cli <- GraphqlClient$new(url = "https://api.github.com/graphql")
 #'
 #' library("httr")
 #' token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
-#' cli <- graphql(
+#' cli <- GraphqlClient$new(
 #'   url = "https://api.github.com/graphql",
 #'   headers = add_headers(Authorization = paste0("Bearer ", token))
 #' )
@@ -52,7 +46,7 @@
 #'
 #' # after dumping to file, you can later read schema from file for faster loading
 #' rm(cli)
-#' cli <- graphql(
+#' cli <- GraphqlClient$new(
 #'   url = "https://api.github.com/graphql",
 #'   headers = add_headers(Authorization = paste0("Bearer ", token))
 #' )
@@ -69,6 +63,7 @@
 #' head(cli$schema$data$`__schema`$types)
 #' cli$schema$data$`__schema`$directives
 #'
+#'
 #' # methods
 #' ## ping - hopefully you get a 200
 #' cli$ping()
@@ -76,14 +71,12 @@
 #' ## dump schema
 #' cli$schema2json()
 #'
-#' ## define query
-#' cli$query('query { }')
-#' cli$query_string
-#' ### execute the query
-#' cli$exec()
 #'
+#' ## define query
+#' ### creat a query class first
+#' qry <- Query$new()
 #' ## another
-#' cli$query('{
+#' qry$query('repos', '{
 #'   viewer {
 #'     repositories(last: 10, isFork: false, privacy: PUBLIC) {
 #'       edges {
@@ -96,18 +89,60 @@
 #'     }
 #'   }
 #' }')
-#' cli$query_string
+#' qry
+#' qry$queries
+#' qry$queries$repos
 #' ### execute the query
-#' cli$exec()
-#' ### parse query string to JSON (with libgraphqlparser)
-#' (json <- cli$parse_2json())
-#' jsonlite::fromJSON(json)
+#' cli$exec(qry$queries$repos)
+#'
+#'
+#' # query with a fragment
+#' ### define query without fragment, but referring to it
+#' qry <- Query$new()
+#' qry$query('queryfrag', '{
+#'   ropensci: repositoryOwner(login:"ropensci") {
+#'     repositories(first: 3) {
+#'       edges {
+#'         node {
+#'           ...Watchers
+#'         }
+#'       }
+#'     }
+#'   }
+#'   ropenscilabs: repositoryOwner(login:"ropenscilabs") {
+#'     repositories(first: 3) {
+#'       edges {
+#'         node {
+#'           ...Watchers
+#'         }
+#'       }
+#'     }
+#'   }
+#' }')
+#'
+#' ### define a fragment
+#' frag <- Fragment$new()
+#' frag$fragment('Watchers', '
+#'   fragment on Repository {
+#'     watchers(first: 3) {
+#'       edges {
+#'         node {
+#'           name
+#'        }
+#'     }
+#'   }
+#' }')
+#' frag$fragments
+#' frag$fragments$Watchers
+#'
+#' ### add the fragment to the query 'queryfrag'
+#' qry$add_fragment('queryfrag', frag$fragments$Watchers)
+#' qry
+#' qry$queries$queryfrag
+#'
+#' ### execute query: we'll hook together the query and your fragment internally
+#' cli$exec(qry$queries$queryfrag)
 #' }
-graphql <- function(url, headers) {
-  GraphqlClient$new(url = url, headers = headers)
-}
-
-#' @importFrom R6 R6Class
 GraphqlClient <- R6::R6Class(
   "GraphqlClient",
   portable = TRUE,
@@ -116,13 +151,12 @@ GraphqlClient <- R6::R6Class(
     url = NULL,
     headers = NULL,
     schema = NULL,
-    query_string = NULL,
     result = NULL,
+    fragments = list(),
 
     initialize = function(url, headers) {
       if (!missing(url)) self$url <- url
       if (!missing(headers)) self$headers <- headers
-      # self$load_schema(self$url)
     },
 
     print = function(...) {
@@ -160,19 +194,42 @@ GraphqlClient <- R6::R6Class(
       jsonlite::toJSON(self$schema, ...)
     },
 
-    query = function(x) {
-      self$query_string <- gsub("\n", "", x)
+    fragment = function(name, x) {
+      self$fragments <-
+        c(
+          self$fragments,
+          stats::setNames(list(structure(x, class = "fragment")), name)
+        )
     },
 
-    exec = function(...) {
-      self$result <- jsonlite::fromJSON(cont(
-        gh_POST(self$url, self$query_string, self$headers, ...)
+    exec = function(query, ...) {
+      jsonlite::fromJSON(cont(
+        gh_POST(
+          self$url,
+          gsub("\n", "", private$handle_query(query)),
+          self$headers, ...)
       ))
-      return(self$result)
     },
 
-    parse2json = function() {
-      graphql::graphql2json(string = self$query_string)
+    prep_query = function(query) {
+      private$handle_query(query)
+    }
+  ),
+
+  private = list(
+    handle_query = function(x) {
+      if (!length(x$fragment)) {
+        x$query
+      } else {
+        fname <- attr(x$fragment, "name")
+        if (!grepl(paste0("...", fname), x$query)) {
+          stop(sprintf("fragment '%s' not found in query", fname),
+               call. = FALSE)
+        }
+        frag <- sub("fragment on",
+                    sprintf("fragment %s on", fname), unclass(x$fragment))
+        paste(x$query, frag)
+      }
     }
   )
 )
