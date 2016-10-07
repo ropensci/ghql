@@ -1,8 +1,8 @@
 language: r
-sudo: false
 cache: packages
+sudo: required
 
-compiler: clang
+dist: trusty
 
 notifications:
   email:
