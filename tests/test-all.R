@@ -1,2 +1,2 @@
 library("testthat")
-test_check("qhql")
+test_check("ghql")
