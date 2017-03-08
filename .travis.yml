@@ -1,6 +1,6 @@
 language: r
 cache: packages
-sudo: required
+sudo: false
 dist: trusty
 env: R_CODECOV=true
 notifications:
