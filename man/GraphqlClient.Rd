@@ -32,8 +32,12 @@ ghql client
     \item{\code{schema2json(...)}}{
      convert schema to JSON
     }
+    \item{\code{exec(...)}}{
+     returns JSON as a character string
+    }
   }
 }
+
 \examples{
 \dontrun{
 # make a client
@@ -43,8 +47,7 @@ library("httr")
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 cli <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
-  headers = add_headers(Authorization = paste0("Bearer ", token))
-)
+  headers = add_headers(Authorization = paste0("Bearer ", token)))
 
 # if the GraphQL server has a schema, you can load it
 cli$load_schema()
@@ -156,4 +159,3 @@ cli$exec(qry$queries$queryfrag)
 }
 }
 \keyword{datasets}
-

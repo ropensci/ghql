@@ -19,6 +19,7 @@ ghql fragment class
     }
   }
 }
+
 \examples{
 \dontrun{
 # make a fragment class
@@ -54,4 +55,3 @@ frag$fragments$Stargazers
 }
 }
 \keyword{datasets}
-

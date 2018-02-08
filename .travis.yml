@@ -3,9 +3,15 @@ cache: packages
 sudo: false
 dist: trusty
 env: R_CODECOV=true
+
+r_github_packages:
+  - jimhester/covr
+
 notifications:
   email:
     on_success: change
     on_failure: change
+
+
 after_success:
   - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi

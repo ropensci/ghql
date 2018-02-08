@@ -2,8 +2,8 @@
 % Please edit documentation in R/ghql-package.R
 \docType{package}
 \name{ghql-package}
-\alias{ghql}
 \alias{ghql-package}
+\alias{ghql}
 \title{ghql}
 \description{
 General purpose GraphQL client
@@ -22,8 +22,8 @@ which works together with \code{\link{GraphqlClient}}
 \code{\link{Fragment}} is an interface to creating GraphQL fragments,
 which works together with \code{\link{GraphqlClient}}
 }
+
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 }
 \keyword{package}
-

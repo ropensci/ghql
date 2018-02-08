@@ -22,6 +22,9 @@
 #'     \item{\code{schema2json(...)}}{
 #'      convert schema to JSON
 #'     }
+#'     \item{\code{exec(...)}}{
+#'      returns JSON as a character string
+#'     }
 #'   }
 #'
 #' @examples \dontrun{
@@ -32,8 +35,7 @@
 #' token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 #' cli <- GraphqlClient$new(
 #'   url = "https://api.github.com/graphql",
-#'   headers = add_headers(Authorization = paste0("Bearer ", token))
-#' )
+#'   headers = add_headers(Authorization = paste0("Bearer ", token)))
 #'
 #' # if the GraphQL server has a schema, you can load it
 #' cli$load_schema()
@@ -203,12 +205,12 @@ GraphqlClient <- R6::R6Class(
     },
 
     exec = function(query, ...) {
-      jsonlite::fromJSON(cont(
+      cont(
         gh_POST(
           self$url,
           gsub("\n", "", private$handle_query(query)),
           self$headers, ...)
-      ))
+      )
     },
 
     prep_query = function(query) {

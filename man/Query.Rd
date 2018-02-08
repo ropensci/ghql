@@ -22,6 +22,7 @@ ghql query class
     }
   }
 }
+
 \examples{
 \dontrun{
 # make a client
@@ -142,4 +143,3 @@ qry$queries$queryfrag
 }
 }
 \keyword{datasets}
-
