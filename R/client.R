@@ -175,7 +175,8 @@ GraphqlClient <- R6::R6Class(
       if (!is.null(schema_url) || is.null(schema_file)) {
         self$schema <- parze(
           cont(
-            gh_GET(if (is.null(schema_url)) self$url else x, self$headers, ...)
+            gh_GET(if (is.null(schema_url)) self$url else schema_url,
+                   self$headers, ...)
           )
         )
       } else {
