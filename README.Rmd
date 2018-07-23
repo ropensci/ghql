@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 
 GraphQL - <http://graphql.org>
 
+`ghql` uses the rOpenSci's package [`graphql`](https://github.com/ropensci/graphql/), GraphQL query parser.
+
 Examples of GraphQL APIs:
 
 * [Github GraphQL API](https://developer.github.com/early-access/graphql/)
