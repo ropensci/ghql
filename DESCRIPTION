@@ -8,6 +8,8 @@ Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
 License: MIT + file LICENSE
 URL: https://github.com/ropensci/ghql
 BugReports: https://github.com/ropensci/ghql/issues
+Encoding: UTF-8
+Language: en-US
 Imports:
     httr (>= 1.2.0),
     jsonlite (>= 1.0),
@@ -15,4 +17,4 @@ Imports:
     graphql
 Suggests:
     testthat
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
