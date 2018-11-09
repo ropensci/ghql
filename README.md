@@ -14,7 +14,8 @@ GraphQL - <http://graphql.org>
 
 Examples of GraphQL APIs:
 
-* [Github GraphQL API](https://developer.github.com/early-access/graphql/)
+* [GitHub](https://developer.github.com/early-access/graphql/)
+* [Opentargets](http://open-targets-genetics.appspot.com/)
 
 ## Github Authentication
 
@@ -89,8 +90,7 @@ qry$queries$myquery
 
 ```r
 cli$exec(qry$queries$myquery)
-#> $data
-#> named list()
+#> [1] "{\"data\":null,\"errors\":[{\"message\":\"Parse error on \\\"}\\\" (RCURLY) at [1, 9]\",\"locations\":[{\"line\":1,\"column\":9}]}]}\n"
 ```
 
 Gives back no result, as we didn't ask for anything :)
@@ -140,16 +140,7 @@ qry$queries$getdozedata
 
 ```r
 cli$exec(qry$queries$getdozedata)
-#> $data
-#> $data$repositoryOwner
-#> $data$repositoryOwner$repositories
-#> $data$repositoryOwner$repositories$edges
-#>             node.name node.totalCount
-#> 1   sckott.github.com               8
-#> 2 usdaplantsapistatus               0
-#> 3       usdaplantsapi              19
-#> 4            rforcats              34
-#> 5             soylocs               2
+#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"ropenblog\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":101}}},{\"node\":{\"name\":\"BacDiveR\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"usdaplantsapi\",\"stargazers\":{\"totalCount\":39}}}]}}}}\n"
 ```
 
 ## run a local GraphQL server
