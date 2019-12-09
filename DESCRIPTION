@@ -6,7 +6,7 @@ Version: 0.0.4.9210
 Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com"))
 License: MIT + file LICENSE
-URL: https://github.com/ropensci/ghql
+URL: https://docs.ropensci.org/ghql, https://github.com/ropensci/ghql
 BugReports: https://github.com/ropensci/ghql/issues
 Encoding: UTF-8
 Language: en-US
