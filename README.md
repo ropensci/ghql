@@ -90,7 +90,7 @@ qry$queries$myquery
 
 ```r
 cli$exec(qry$queries$myquery)
-#> [1] "{\"data\":null,\"errors\":[{\"message\":\"Parse error on \\\"}\\\" (RCURLY) at [1, 9]\",\"locations\":[{\"line\":1,\"column\":9}]}]}\n"
+#> [1] "{\"errors\":[{\"message\":\"Parse error on \\\"}\\\" (RCURLY) at [1, 9]\",\"locations\":[{\"line\":1,\"column\":9}]}]}\n"
 ```
 
 Gives back no result, as we didn't ask for anything :)
@@ -140,7 +140,7 @@ qry$queries$getdozedata
 
 ```r
 cli$exec(qry$queries$getdozedata)
-#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"ropenblog\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":101}}},{\"node\":{\"name\":\"BacDiveR\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"usdaplantsapi\",\"stargazers\":{\"totalCount\":39}}}]}}}}\n"
+#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"conferences\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"open-discovery\",\"stargazers\":{\"totalCount\":35}}},{\"node\":{\"name\":\"roadmap\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"compadreDB\",\"stargazers\":{\"totalCount\":28}}},{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":120}}}]}}}}\n"
 ```
 
 ## run a local GraphQL server
