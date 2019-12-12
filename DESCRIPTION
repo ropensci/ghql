@@ -2,7 +2,7 @@ Package: ghql
 Type: Package
 Title: General Purpose GraphQL Client
 Description: General purpose GraphQL client.
-Version: 0.0.5.921
+Version: 0.0.6.921
 Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com",
     comment = c(ORCID="0000-0003-1444-9135")))
