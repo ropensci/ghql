@@ -1,19 +1,7 @@
 #' ghql query class
 #'
 #' @export
-#' @return a \code{Query} class (R6 class)
-#' @section methods:
-#' \strong{Methods}
-#'   \describe{
-#'     \item{\code{query(x)}}{
-#'      define query in a character string
-#'     }
-#'     \item{\code{parse2json(query)}}{
-#'      parse query string with libgraphqlparser and get back JSON
-#'     }
-#'   }
-#' @format NULL
-#' @usage NULL
+#' @return a `Query` class (R6 class)
 #' @examples \dontrun{
 #' # make a client
 #' qry <- Query$new()
@@ -136,9 +124,13 @@ Query <- R6::R6Class(
   portable = TRUE,
   cloneable = FALSE,
   public = list(
+    #' @field queries (list) list of queries
     queries = list(),
 
-    print = function(...) {
+    #' @description print method for the `Query` class
+    #' @param x self
+    #' @param ... ignored
+    print = function(x, ...) {
       cat('<ghql: query>', sep = "\n")
       cat('  queries:\n')
       for (i in seq_along(self$queries)) {
@@ -150,6 +142,10 @@ Query <- R6::R6Class(
       }
     },
 
+    #' @description define query in a character string
+    #' @param name (character) name of the query
+    #' @param x (character) the query itself
+    #' @return nothing returned; sets query with `name` internally
     query = function(name, x) {
       self$queries <-
         c(
@@ -161,6 +157,10 @@ Query <- R6::R6Class(
         )
     },
 
+    #' @description add a fragment to a query
+    #' @param query_name (character) the query name to add the fragment to
+    #' @param fragment (character) the fragment itself
+    #' @return nothing returned; sets the fragment with the query
     add_fragment = function(query_name, fragment) {
       # lookup query by name
       # if not found stop with message saying query name not found
@@ -171,6 +171,9 @@ Query <- R6::R6Class(
       self$queries[[query_name]]$fragment <- fragment
     },
 
+    #' @description parse query string with libgraphqlparser and get back JSON
+    #' @param query a query
+    #' @return adf
     parse2json = function(query) {
       graphql::graphql2json(query)
     }

@@ -10,17 +10,17 @@ General purpose GraphQL client
 }
 \section{ghql API}{
 
-The main interface in this package is \code{\link{GraphqlClient}}, which produces
+The main interface in this package is [GraphqlClient], which produces
 a client (R6 class) with various methods for interacting with a
-GraphQL server. \code{\link{GraphqlClient}} also accepts various input parameters
+GraphQL server. [GraphqlClient] also accepts various input parameters
 to set a base URL, and any headers required, which is usually the required
 set of things needed to connect to a GraphQL service.
 
-\code{\link{Query}} is an interface to creating GraphQL queries,
-which works together with \code{\link{GraphqlClient}}
+[Query] is an interface to creating GraphQL queries,
+which works together with [GraphqlClient]
 
-\code{\link{Fragment}} is an interface to creating GraphQL fragments,
-which works together with \code{\link{GraphqlClient}}
+[Fragment] is an interface to creating GraphQL fragments,
+which works together with [GraphqlClient]
 }
 
 \author{

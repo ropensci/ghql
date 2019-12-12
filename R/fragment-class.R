@@ -1,16 +1,7 @@
 #' ghql fragment class
 #'
 #' @export
-#' @return a \code{Fragment} class (R6 class)
-#' @section methods:
-#' \strong{Methods}
-#'   \describe{
-#'     \item{\code{fragment(name, x)}}{
-#'      create a fragment by name
-#'     }
-#'   }
-#' @format NULL
-#' @usage NULL
+#' @return a `Fragment` class (R6 class)
 #' @examples \dontrun{
 #' # make a fragment class
 #' frag <- Fragment$new()
@@ -48,9 +39,13 @@ Fragment <- R6::R6Class(
   portable = TRUE,
   cloneable = FALSE,
   public = list(
+    #' @field fragments (list) list of fragments
     fragments = list(),
 
-    print = function(...) {
+    #' @description print method for the `Fragment` class
+    #' @param x self
+    #' @param ... ignored
+    print = function(x, ...) {
       cat('<ghql: fragment>', sep = "\n")
       cat('  fragments:\n')
       for (i in seq_along(self$fragments)) {
@@ -58,11 +53,16 @@ Fragment <- R6::R6Class(
       }
     },
 
+    #' @description create a fragment by name
+    #' @param name (character) fragment name
+    #' @param x (character) the fragment
+    #' @return nothing returned; sets fragments internally
     fragment = function(name, x) {
       self$fragments <-
         c(
           self$fragments,
-          stats::setNames(list(structure(x, class = "fragment", name = name)), name)
+          stats::setNames(list(structure(x, class = "fragment", name = name)),
+            name)
         )
     }
   )

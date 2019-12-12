@@ -1,36 +1,9 @@
 #' ghql client
 #'
 #' @export
-#' @param url (character) URL for the GraphQL schema
-#' @param headers Any acceptable \pkg{httr} header, constructed typically
-#' via \code{\link[httr]{add_headers}}. See examples
-#' @return a \code{GraphqlClient} class (R6 class)
-#' @format NULL
-#' @usage NULL
-#' @section methods:
-#' \strong{Methods}
-#'   \describe{
-#'     \item{\code{ping(...)}}{
-#'      ping the GraphQL server, return HTTP status code
-#'     }
-#'     \item{\code{load_schema(schema_url, schema_file)}}{
-#'      load schema, from URL or local file
-#'     }
-#'     \item{\code{dump_schema(file)}}{
-#'      dump schema to a local file
-#'     }
-#'     \item{\code{schema2json(...)}}{
-#'      convert schema to JSON
-#'     }
-#'     \item{\code{exec(...)}}{
-#'      returns JSON as a character string
-#'     }
-#'   }
-#'
+#' @return a `GraphqlClient` class (R6 class)
 #' @examples \dontrun{
 #' # make a client
-#' # cli <- GraphqlClient$new(url = "https://api.github.com/graphql")
-#'
 #' library("httr")
 #' token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 #' cli <- GraphqlClient$new(
@@ -150,27 +123,48 @@ GraphqlClient <- R6::R6Class(
   portable = TRUE,
   cloneable = FALSE,
   public = list(
+    #' @field url (character) list of fragments
     url = NULL,
+    #' @field headers result of call to `httr::add_headers()`
     headers = NULL,
+    #' @field schema holds schema
     schema = NULL,
+    #' @field result holds result from http request
     result = NULL,
+    #' @field fragments (list) list of fragments
     fragments = list(),
 
+    #' @description Create a new `GraphqlClient` object
+    #' @param url (character) URL for the GraphQL schema
+    #' @param headers Any acceptable \pkg{httr} header, constructed typically
+    #' via [httr::add_headers()]. See examples
+    #' @return A new `GraphqlClient` object
     initialize = function(url, headers) {
       if (!missing(url)) self$url <- url
       if (!missing(headers)) self$headers <- headers
     },
 
-    print = function(...) {
+    #' @description print method for the `GraphqlClient` class
+    #' @param x self
+    #' @param ... ignored
+    print = function(x, ...) {
       cat('<ghql client>', sep = "\n")
       cat(paste0('  url: ', self$url), sep = "\n")
     },
 
+    #' @description ping the GraphQL server, return HTTP status code
+    #' @param ... curl options passed on to [httr::HEAD()]
+    #' @return http status code (integer)
     ping = function(...) {
       res <- gh_HEAD(self$url, self$headers, ...)
       res$status_code
     },
 
+    #' @description load schema, from URL or local file
+    #' @param schema_url (character) url for a schema file
+    #' @param schema_file (character) path to a schema file
+    #' @param ... curl options passed on to [httr::GET()]
+    #' @return nothing, loads schema into `$schema` slot
     load_schema = function(schema_url = NULL, schema_file = NULL, ...) {
       if (!is.null(schema_url) || is.null(schema_file)) {
         self$schema <- parze(
@@ -184,6 +178,9 @@ GraphqlClient <- R6::R6Class(
       }
     },
 
+    #' @description dump schema to a local file
+    #' @param file (character) path to a file
+    #' @return nothing, writes schema to `file`
     dump_schema = function(file) {
       schema <- self$schema2json()
       if (schema == "{}") {
@@ -193,10 +190,17 @@ GraphqlClient <- R6::R6Class(
       }
     },
 
+    #' @description convert schema to JSON
+    #' @param ... options passed on to [jsonlite::toJSON()]
+    #' @return json
     schema2json = function(...) {
       jsonlite::toJSON(self$schema, ...)
     },
 
+    #' @description load schema, from URL or local file
+    #' @param name (character) fragment name
+    #' @param x (character) the fragment
+    #' @return nothing returned; sets fragments internally
     fragment = function(name, x) {
       self$fragments <-
         c(
@@ -205,6 +209,10 @@ GraphqlClient <- R6::R6Class(
         )
     },
 
+    #' @description execute the query
+    #' @param query (character) a query, of class `query` or `fragment`
+    #' @param ... curl options passed on to [httr::POST()]
+    #' @return character string of response, if successful
     exec = function(query, ...) {
       cont(
         gh_POST(
@@ -214,6 +222,8 @@ GraphqlClient <- R6::R6Class(
       )
     },
 
+    #' @description not used right now
+    #' @param query (character) a query, of class `query` or `fragment`
     prep_query = function(query) {
       private$handle_query(query)
     }
