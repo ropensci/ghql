@@ -2,10 +2,10 @@ gh_base <- function() "https://api.github.com/graphql"
 
 ct <- function(x) Filter(Negate(is.null), x)
 
-gh_POST <- function(url, query, ...){
+gh_POST <- function(url, body, ...){
   temp <- httr::POST(
     url,
-    body = list(query = query),
+    body = body,
     #ghql_auth(),
     encode = "json",
     ...)
