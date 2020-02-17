@@ -211,13 +211,18 @@ GraphqlClient <- R6::R6Class(
 
     #' @description execute the query
     #' @param query (character) a query, of class `query` or `fragment`
+    #' @param variables (list) named list with query variables values
     #' @param ... curl options passed on to [httr::POST()]
     #' @return character string of response, if successful
-    exec = function(query, ...) {
+    exec = function(query, variables, ...) {
+      parsed_query <- gsub("\n", "", private$handle_query(query))
+      body <- list(query = parsed_query)
+      if (!missing(variables)) 
+        body$variables = variables
       cont(
         gh_POST(
           self$url,
-          gsub("\n", "", private$handle_query(query)),
+          body,
           self$headers, ...)
       )
     },
