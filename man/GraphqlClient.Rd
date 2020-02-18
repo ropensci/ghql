@@ -141,6 +141,15 @@ cli$exec(qry$queries$queryfrag)
 \item{\code{result}}{holds result from http request}
 
 \item{\code{fragments}}{(list) list of fragments}
+
+\item{\code{gql}}{variable regexp}
+}
+\if{html}{\out{</div>}}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{gql}}{variable regexp}
 }
 \if{html}{\out{</div>}}
 }
@@ -304,13 +313,15 @@ nothing returned; sets fragments internally
 \subsection{Method \code{exec()}}{
 execute the query
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$exec(query, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$exec(query, variables, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{query}}{(character) a query, of class `query` or `fragment`}
+
+\item{\code{variables}}{(list) named list with query variables values}
 
 \item{\code{...}}{curl options passed on to [httr::POST()]}
 }
