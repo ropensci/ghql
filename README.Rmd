@@ -36,7 +36,7 @@ before trying this pkg.
 Development version
 
 ```{r eval=FALSE}
-devtools::install_github("ropensci/ghql")
+remotes::install_github("ropensci/ghql")
 ```
 
 ```{r}
@@ -73,24 +73,10 @@ Make a `Query` class object
 qry <- Query$new()
 ```
 
-```{r}
-qry$query('myquery', 'query { }')
-qry
-qry$queries
-qry$queries$myquery
-```
+Get some stargazer counts
 
 ```{r}
-cli$exec(qry$queries$myquery)
-```
-
-Gives back no result, as we didn't ask for anything :)
-
-
-## Get some actual data
-
-```{r}
-qry$query('getdozedata', '{
+qry$query('mydata', '{
   repositoryOwner(login:"sckott") {
     repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {
       edges {
@@ -105,11 +91,14 @@ qry$query('getdozedata', '{
   }
 }')
 qry
-qry$queries$getdozedata
+qry$queries$mydata
 ```
 
 ```{r}
-cli$exec(qry$queries$getdozedata)
+# returns json
+(x <- cli$exec(qry$queries$mydata))
+# parse to an R list
+jsonlite::fromJSON(x)
 ```
 
 ## run a local GraphQL server

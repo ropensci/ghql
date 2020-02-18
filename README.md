@@ -30,7 +30,7 @@ Development version
 
 
 ```r
-devtools::install_github("ropensci/ghql")
+remotes::install_github("ropensci/ghql")
 ```
 
 
@@ -71,36 +71,11 @@ Make a `Query` class object
 qry <- Query$new()
 ```
 
-
-```r
-qry$query('myquery', 'query { }')
-qry
-#> <ghql: query>
-#>   queries:
-#>     myquery
-qry$queries
-#> $myquery
-#>  
-#>  query { }
-qry$queries$myquery
-#>  
-#>  query { }
-```
+Get some stargazer counts
 
 
 ```r
-cli$exec(qry$queries$myquery)
-#> [1] "{\"errors\":[{\"message\":\"Parse error on \\\"}\\\" (RCURLY) at [1, 9]\",\"locations\":[{\"line\":1,\"column\":9}]}]}\n"
-```
-
-Gives back no result, as we didn't ask for anything :)
-
-
-## Get some actual data
-
-
-```r
-qry$query('getdozedata', '{
+qry$query('mydata', '{
   repositoryOwner(login:"sckott") {
     repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {
       edges {
@@ -117,9 +92,8 @@ qry$query('getdozedata', '{
 qry
 #> <ghql: query>
 #>   queries:
-#>     myquery    
-#>     getdozedata
-qry$queries$getdozedata
+#>     mydata
+qry$queries$mydata
 #>  
 #>  {
 #>   repositoryOwner(login:"sckott") {
@@ -139,8 +113,21 @@ qry$queries$getdozedata
 
 
 ```r
-cli$exec(qry$queries$getdozedata)
-#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"conferences\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"open-discovery\",\"stargazers\":{\"totalCount\":35}}},{\"node\":{\"name\":\"roadmap\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"compadreDB\",\"stargazers\":{\"totalCount\":28}}},{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":120}}}]}}}}\n"
+# returns json
+(x <- cli$exec(qry$queries$mydata))
+#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"serrano\",\"stargazers\":{\"totalCount\":19}}},{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":124}}},{\"node\":{\"name\":\"soylocs\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}},{\"node\":{\"name\":\"analogsea\",\"stargazers\":{\"totalCount\":107}}}]}}}}\n"
+# parse to an R list
+jsonlite::fromJSON(x)
+#> $data
+#> $data$repositoryOwner
+#> $data$repositoryOwner$repositories
+#> $data$repositoryOwner$repositories$edges
+#>      node.name node.totalCount
+#> 1      serrano              19
+#> 2    Headstart             124
+#> 3      soylocs               2
+#> 4 makeregistry               3
+#> 5    analogsea             107
 ```
 
 ## run a local GraphQL server

@@ -23,3 +23,6 @@ check: build
 
 check_windows:
 	${RSCRIPT} -e "devtools::check_win_devel(); devtools::check_win_release()"
+
+readme: README.Rmd
+	${RSCRIPT} -e "library(methods); knitr::knit('README.Rmd')"
