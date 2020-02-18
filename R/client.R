@@ -217,8 +217,13 @@ GraphqlClient <- R6::R6Class(
     exec = function(query, variables, ...) {
       parsed_query <- gsub("\n", "", private$handle_query(query))
       body <- list(query = parsed_query)
-      if (!missing(variables)) 
-        body$variables = variables
+      if (private$has_variables(body$query)) {
+        if (missing(variables))
+          stop(sprintf("query has variables and not one passsed"), call. = FALSE)
+        else
+          private$verify_variables(body$query, variables)
+          body$variables = variables  
+      }
       cont(
         gh_POST(
           self$url,
@@ -235,6 +240,11 @@ GraphqlClient <- R6::R6Class(
   ),
 
   private = list(
+    #' @field gql variable regexp 
+    .var_regex = '\\$([[:alnum:]]+)',
+    #' @description rewrite query if there is fragments, leave equal otherwise
+    #' @param x (character) a query, of class `query` or `fragment`
+    #' @return a graphql query language character vector
     handle_query = function(x) {
       if (!length(x$fragment)) {
         x$query
@@ -247,6 +257,30 @@ GraphqlClient <- R6::R6Class(
         frag <- sub("fragment on",
                     sprintf("fragment %s on", fname), unclass(x$fragment))
         paste(x$query, frag)
+      }
+    },
+    #' @description check if query has variables
+    #' @param query (character) a graphql query language character vector
+    has_variables = function(query){
+      grepl(private$.var_regex, query)
+    },
+    #' @description check if query variables are given on `variables`
+    #' @param query (character) a graphql query language character vector
+    #' @param variables (list) variables named list
+    verify_variables = function(query, variables) {
+      vars <- sub("\\$", "",
+        unique(
+          regmatches(
+            query, 
+            gregexpr(
+              private$.var_regex, query
+            )
+          )[[1]]
+        )
+      )
+      for (v in vars) {
+        if (is.null(variables[[v]]))
+          stop(sprintf("variable `%s` is null or not found in variables", v), call. = FALSE)
       }
     }
   )
