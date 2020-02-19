@@ -9,3 +9,4 @@ man-roxygen
 ^Makefile$
 ^.github$
 ^codemeta\.json$
+^cran-comments\.md$
