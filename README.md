@@ -18,7 +18,7 @@ Examples of GraphQL APIs:
 Other GraphQL R projects:
 
 * [graphql](https://github.com/ropensci/graphql) - GraphQL query parser
-* [gqlr](https://github.com/schloerke/gqlr) - GraphQL server and query methods
+* [gqlr][] - GraphQL server and query methods
 
 ## Github Authentication
 
@@ -28,6 +28,13 @@ Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
 before trying this pkg.
 
 ## Install
+
+CRAN version
+
+
+```r
+install.packages("ghql")
+```
 
 Development version
 
@@ -182,3 +189,5 @@ cli$exec(xxx$queries$query)
 ## Meta
 
 * Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+[gqlr]: https://github.com/schloerke/gqlr
