@@ -4,11 +4,11 @@
 #' @return a `GraphqlClient` class (R6 class)
 #' @examples \dontrun{
 #' # make a client
-#' library("httr")
 #' token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 #' cli <- GraphqlClient$new(
 #'   url = "https://api.github.com/graphql",
-#'   headers = add_headers(Authorization = paste0("Bearer ", token)))
+#'   headers = list(Authorization = paste0("Bearer ", token))
+#' )
 #'
 #' # if the GraphQL server has a schema, you can load it
 #' cli$load_schema()
@@ -23,7 +23,7 @@
 #' rm(cli)
 #' cli <- GraphqlClient$new(
 #'   url = "https://api.github.com/graphql",
-#'   headers = add_headers(Authorization = paste0("Bearer ", token))
+#'   headers = list(Authorization = paste0("Bearer ", token))
 #' )
 #' cli$load_schema(schema_file = f)
 #'
@@ -40,7 +40,7 @@
 #'
 #'
 #' # methods
-#' ## ping - hopefully you get a 200
+#' ## ping - hopefully you get TRUE
 #' cli$ping()
 #'
 #' ## dump schema
@@ -125,7 +125,7 @@ GraphqlClient <- R6::R6Class(
   public = list(
     #' @field url (character) list of fragments
     url = NULL,
-    #' @field headers result of call to `httr::add_headers()`
+    #' @field headers list of named headers
     headers = NULL,
     #' @field schema holds schema
     schema = NULL,
@@ -136,8 +136,7 @@ GraphqlClient <- R6::R6Class(
 
     #' @description Create a new `GraphqlClient` object
     #' @param url (character) URL for the GraphQL schema
-    #' @param headers Any acceptable \pkg{httr} header, constructed typically
-    #' via [httr::add_headers()]. See examples
+    #' @param headers Any acceptable headers, a named list. See examples
     #' @return A new `GraphqlClient` object
     initialize = function(url, headers) {
       if (!missing(url)) self$url <- url
@@ -153,7 +152,7 @@ GraphqlClient <- R6::R6Class(
     },
 
     #' @description ping the GraphQL server
-    #' @param ... curl options passed on to [crul::verb-head]
+    #' @param ... curl options passed on to [crul::verb-HEAD]
     #' @return `TRUE` if successful response, `FALSE` otherwise
     ping = function(...) {
       res <- gh_HEAD(self$url, self$headers, ...)
@@ -163,7 +162,7 @@ GraphqlClient <- R6::R6Class(
     #' @description load schema, from URL or local file
     #' @param schema_url (character) url for a schema file
     #' @param schema_file (character) path to a schema file
-    #' @param ... curl options passed on to [httr::GET()]
+    #' @param ... curl options passed on to [crul::verb-GET]
     #' @return nothing, loads schema into `$schema` slot
     load_schema = function(schema_url = NULL, schema_file = NULL, ...) {
       if (!is.null(schema_url) || is.null(schema_file)) {
@@ -212,9 +211,11 @@ GraphqlClient <- R6::R6Class(
     #' @description execute the query
     #' @param query (character) a query, of class `query` or `fragment`
     #' @param variables (list) named list with query variables values
-    #' @param ... curl options passed on to [httr::POST()]
+    #' @param encoding (character) encoding to use to parse the response. passed
+    #' on to [crul::HttpResponse] `$parse()` method. default: "UTF-8"
+    #' @param ... curl options passed on to [crul::verb-POST]
     #' @return character string of response, if successful
-    exec = function(query, variables, ...) {
+    exec = function(query, variables, encoding = "UTF-8", ...) {
       parsed_query <- gsub("\n", "", private$handle_query(query))
       body <- list(query = parsed_query)
       if (private$has_variables(body$query)) {
@@ -228,7 +229,8 @@ GraphqlClient <- R6::R6Class(
         gh_POST(
           self$url,
           body,
-          self$headers, ...)
+          self$headers, ...),
+        encoding = encoding
       )
     },
 

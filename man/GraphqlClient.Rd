@@ -12,11 +12,11 @@ R6 class for constructing GraphQL queries
 \examples{
 \dontrun{
 # make a client
-library("httr")
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 cli <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
-  headers = add_headers(Authorization = paste0("Bearer ", token)))
+  headers = list(Authorization = paste0("Bearer ", token))
+)
 
 # if the GraphQL server has a schema, you can load it
 cli$load_schema()
@@ -31,7 +31,7 @@ jsonlite::fromJSON(readLines(f))
 rm(cli)
 cli <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
-  headers = add_headers(Authorization = paste0("Bearer ", token))
+  headers = list(Authorization = paste0("Bearer ", token))
 )
 cli$load_schema(schema_file = f)
 
@@ -48,7 +48,7 @@ cli$schema$data$`__schema`$directives
 
 
 # methods
-## ping - hopefully you get a 200
+## ping - hopefully you get TRUE
 cli$ping()
 
 ## dump schema
@@ -132,7 +132,7 @@ cli$exec(qry$queries$queryfrag)
 \describe{
 \item{\code{url}}{(character) list of fragments}
 
-\item{\code{headers}}{result of call to `httr::add_headers()`}
+\item{\code{headers}}{list of named headers}
 
 \item{\code{schema}}{holds schema}
 
@@ -169,8 +169,7 @@ Create a new `GraphqlClient` object
 \describe{
 \item{\code{url}}{(character) URL for the GraphQL schema}
 
-\item{\code{headers}}{Any acceptable \pkg{httr} header, constructed typically
-via [httr::add_headers()]. See examples}
+\item{\code{headers}}{Any acceptable headers, a named list. See examples}
 }
 \if{html}{\out{</div>}}
 }
@@ -207,7 +206,7 @@ ping the GraphQL server
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{curl options passed on to [crul::verb-head]}
+\item{\code{...}}{curl options passed on to [crul::verb-HEAD]}
 }
 \if{html}{\out{</div>}}
 }
@@ -230,7 +229,7 @@ load schema, from URL or local file
 
 \item{\code{schema_file}}{(character) path to a schema file}
 
-\item{\code{...}}{curl options passed on to [httr::GET()]}
+\item{\code{...}}{curl options passed on to [crul::verb-GET]}
 }
 \if{html}{\out{</div>}}
 }
@@ -302,7 +301,7 @@ nothing returned; sets fragments internally
 \subsection{Method \code{exec()}}{
 execute the query
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$exec(query, variables, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$exec(query, variables, encoding = "UTF-8", ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -312,7 +311,10 @@ execute the query
 
 \item{\code{variables}}{(list) named list with query variables values}
 
-\item{\code{...}}{curl options passed on to [httr::POST()]}
+\item{\code{encoding}}{(character) encoding to use to parse the response. passed
+on to [crul::HttpResponse] `$parse()` method. default: "UTF-8"}
+
+\item{\code{...}}{curl options passed on to [crul::verb-POST]}
 }
 \if{html}{\out{</div>}}
 }

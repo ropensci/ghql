@@ -2,44 +2,28 @@ gh_base <- function() "https://api.github.com/graphql"
 
 ct <- function(x) Filter(Negate(is.null), x)
 
-gh_POST <- function(url, body, ...){
-  temp <- httr::POST(
-    url,
-    body = body,
-    #ghql_auth(),
-    encode = "json",
-    ...)
-  httr::stop_for_status(temp)
-  temp
+gh_POST <- function(url, body, headers, ...){
+  con <- crul::HttpClient$new(url, headers = headers, opts = list(...))
+  res <- con$post(body = body, encode = "json")
+  res$raise_for_status()
+  res
 }
 
-gh_GET <- function(url, ...){
-  temp <- httr::GET(
-    url,
-    #ghql_auth(),
-    ...)
-  httr::stop_for_status(temp)
-  temp
+gh_GET <- function(url, headers, ...){
+  con <- crul::HttpClient$new(url, headers = headers, opts = list(...))
+  res <- con$get()
+  res$raise_for_status()
+  res
 }
 
-gh_HEAD <- function(url, ...){
-  temp <- httr::HEAD(
-    url,
-    #ghql_auth(),
-    ...)
-  httr::stop_for_status(temp)
-  temp
+gh_HEAD <- function(url, headers, ...){
+  con <- crul::HttpClient$new(url, headers = headers, opts = list(...))
+  res <- con$head()
+  res$raise_for_status()
+  res
 }
 
-# ghql_auth <- function(x) {
-#   key <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
-#   if (key == "") stop("no GITHUB_GRAPHQL_TOKEN key found", call. = FALSE)
-#   httr::add_headers(Authorization = paste0("Bearer ", key))
-# }
-
-cont <- function(x) {
-  httr::content(x, as = 'text', encoding = "UTF-8")
-}
+cont <- function(x, encoding = "UTF-8") x$parse(encoding = encoding)
 
 parze <- function(x) jsonlite::fromJSON(x)
 

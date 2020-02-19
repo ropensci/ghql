@@ -1,5 +1,3 @@
-context("Query class")
-
 test_that("Query client initialization works", {
   expect_is(Query, "R6ClassGenerator")
 

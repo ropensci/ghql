@@ -2,7 +2,7 @@ Package: ghql
 Type: Package
 Title: General Purpose GraphQL Client
 Description: General purpose GraphQL client.
-Version: 0.0.7.91
+Version: 0.0.8.91
 Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com",
     comment = c(ORCID="0000-0003-1444-9135")))
@@ -13,8 +13,8 @@ BugReports: https://github.com/ropensci/ghql/issues
 Encoding: UTF-8
 Language: en-US
 Imports:
-    httr (>= 1.2.0),
-    jsonlite (>= 1.0),
+    crul,
+    jsonlite,
     R6,
     graphql
 Suggests:

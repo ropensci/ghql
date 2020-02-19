@@ -1,5 +1,4 @@
 #' @examples \dontrun{
-#' library("httr")
 #' ql('query { }', config=verbose())
 #'
 #' ql('query { viewer { login email }}', config=verbose())

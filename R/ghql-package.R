@@ -2,6 +2,10 @@
 #'
 #' @description General purpose GraphQL client
 #'
+#' @importFrom crul HttpClient
+#' @importFrom jsonlite toJSON fromJSON
+#' @importFrom R6 R6Class
+#' @importFrom graphql graphql2json
 #' @name ghql-package
 #' @aliases ghql
 #' @docType package

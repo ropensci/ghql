@@ -43,11 +43,10 @@ library("jsonlite")
 
 
 ```r
-library("httr")
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 cli <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
-  headers = add_headers(Authorization = paste0("Bearer ", token))
+  headers = list(Authorization = paste0("Bearer ", token))
 )
 ```
 
@@ -115,7 +114,7 @@ qry$queries$mydata
 ```r
 # returns json
 (x <- cli$exec(qry$queries$mydata))
-#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"serrano\",\"stargazers\":{\"totalCount\":19}}},{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":124}}},{\"node\":{\"name\":\"soylocs\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}},{\"node\":{\"name\":\"analogsea\",\"stargazers\":{\"totalCount\":107}}}]}}}}\n"
+#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":124}}},{\"node\":{\"name\":\"extcite\",\"stargazers\":{\"totalCount\":5}}},{\"node\":{\"name\":\"serrano\",\"stargazers\":{\"totalCount\":19}}},{\"node\":{\"name\":\"soylocs\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}}]}}}}\n"
 # parse to an R list
 jsonlite::fromJSON(x)
 #> $data
@@ -123,11 +122,11 @@ jsonlite::fromJSON(x)
 #> $data$repositoryOwner$repositories
 #> $data$repositoryOwner$repositories$edges
 #>      node.name node.totalCount
-#> 1      serrano              19
-#> 2    Headstart             124
-#> 3      soylocs               2
-#> 4 makeregistry               3
-#> 5    analogsea             107
+#> 1    Headstart             124
+#> 2      extcite               5
+#> 3      serrano              19
+#> 4      soylocs               2
+#> 5 makeregistry               3
 ```
 
 ## run a local GraphQL server

@@ -77,11 +77,10 @@ qry$queries
 qry$queries$querywithfrag
 
 
-library("httr")
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 cli <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
-  headers = add_headers(Authorization = paste0("Bearer ", token))
+  headers = list(Authorization = paste0("Bearer ", token))
 )
 cli$exec(qry$queries$querywithfrag)
 
