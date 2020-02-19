@@ -8,12 +8,12 @@ ghql
 
 `ghql` - general purpose GraphQL client
 
-GraphQL - <http://graphql.org>
+GraphQL - <https://graphql.org>
 
 Examples of GraphQL APIs:
 
-* [GitHub](https://developer.github.com/early-access/graphql/)
-* [Opentargets](http://open-targets-genetics.appspot.com/)
+* GitHub: https://developer.github.com/v4/guides/intro-to-graphql/
+* Opentargets: http://open-targets-genetics.appspot.com/
 
 Other GraphQL R projects:
 
@@ -22,7 +22,7 @@ Other GraphQL R projects:
 
 ## Github Authentication
 
-See <https://developer.github.com/early-access/graphql/guides/accessing-graphql/> for getting an OAuth token.
+See https://developer.github.com/v4/guides/intro-to-graphql/ for getting an OAuth token.
 
 Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
 before trying this pkg.
@@ -188,6 +188,7 @@ cli$exec(xxx$queries$query)
 
 ## Meta
 
-* Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+* Please note that this project is released with a [Contributor Code of Conduct][coc]. By participating in this project you agree to abide by its terms.
 
 [gqlr]: https://github.com/schloerke/gqlr
+[coc]: https://github.com/ropensci/ghql/blob/master/CODE_OF_CONDUCT.md
