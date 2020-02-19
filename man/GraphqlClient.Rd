@@ -2,14 +2,12 @@
 % Please edit documentation in R/client.R
 \name{GraphqlClient}
 \alias{GraphqlClient}
-\title{ghql client}
+\title{GraphqlClient}
 \value{
 a `GraphqlClient` class (R6 class)
 }
 \description{
-ghql client
-
-ghql client
+R6 class for constructing GraphQL queries
 }
 \examples{
 \dontrun{
@@ -141,15 +139,6 @@ cli$exec(qry$queries$queryfrag)
 \item{\code{result}}{holds result from http request}
 
 \item{\code{fragments}}{(list) list of fragments}
-
-\item{\code{gql}}{variable regexp}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{gql}}{variable regexp}
 }
 \if{html}{\out{</div>}}
 }
@@ -210,7 +199,7 @@ print method for the `GraphqlClient` class
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ping"></a>}}
 \subsection{Method \code{ping()}}{
-ping the GraphQL server, return HTTP status code
+ping the GraphQL server
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$ping(...)}\if{html}{\out{</div>}}
 }
@@ -218,12 +207,12 @@ ping the GraphQL server, return HTTP status code
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{curl options passed on to [httr::HEAD()]}
+\item{\code{...}}{curl options passed on to [crul::verb-head]}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-http status code (integer)
+`TRUE` if successful response, `FALSE` otherwise
 }
 }
 \if{html}{\out{<hr>}}

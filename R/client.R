@@ -1,5 +1,5 @@
-#' ghql client
-#'
+#' @title GraphqlClient
+#' @description R6 class for constructing GraphQL queries
 #' @export
 #' @return a `GraphqlClient` class (R6 class)
 #' @examples \dontrun{
@@ -152,12 +152,12 @@ GraphqlClient <- R6::R6Class(
       cat(paste0('  url: ', self$url), sep = "\n")
     },
 
-    #' @description ping the GraphQL server, return HTTP status code
-    #' @param ... curl options passed on to [httr::HEAD()]
-    #' @return http status code (integer)
+    #' @description ping the GraphQL server
+    #' @param ... curl options passed on to [crul::verb-head]
+    #' @return `TRUE` if successful response, `FALSE` otherwise
     ping = function(...) {
       res <- gh_HEAD(self$url, self$headers, ...)
-      res$status_code
+      res$success()
     },
 
     #' @description load schema, from URL or local file
@@ -240,11 +240,12 @@ GraphqlClient <- R6::R6Class(
   ),
 
   private = list(
-    #' @field gql variable regexp 
+    # @field .var_regex variable regexp 
     .var_regex = '\\$([[:alnum:]]+)',
-    #' @description rewrite query if there is fragments, leave equal otherwise
-    #' @param x (character) a query, of class `query` or `fragment`
-    #' @return a graphql query language character vector
+
+    # @description rewrite query if there is fragments, leave equal otherwise
+    # @param x (character) a query, of class `query` or `fragment`
+    # @return a graphql query language character vector
     handle_query = function(x) {
       if (!length(x$fragment)) {
         x$query
@@ -259,14 +260,16 @@ GraphqlClient <- R6::R6Class(
         paste(x$query, frag)
       }
     },
-    #' @description check if query has variables
-    #' @param query (character) a graphql query language character vector
+    
+    # @description check if query has variables
+    # @param query (character) a graphql query language character vector
     has_variables = function(query){
       grepl(private$.var_regex, query)
     },
-    #' @description check if query variables are given on `variables`
-    #' @param query (character) a graphql query language character vector
-    #' @param variables (list) variables named list
+    
+    # @description check if query variables are given on `variables`
+    # @param query (character) a graphql query language character vector
+    # @param variables (list) variables named list
     verify_variables = function(query, variables) {
       vars <- sub("\\$", "",
         unique(
