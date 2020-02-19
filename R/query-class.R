@@ -2,7 +2,7 @@
 #'
 #' @export
 #' @return a `Query` class (R6 class)
-#' @examples \dontrun{
+#' @examples
 #' # make a client
 #' qry <- Query$new()
 #'
@@ -67,6 +67,7 @@
 #' qry$queries$querywithfrag
 #'
 #'
+#' \dontrun{
 #' token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 #' cli <- GraphqlClient$new(
 #'   url = "https://api.github.com/graphql",

@@ -12,7 +12,6 @@ ghql query class
 ghql query class
 }
 \examples{
-\dontrun{
 # make a client
 qry <- Query$new()
 
@@ -77,6 +76,7 @@ qry$queries
 qry$queries$querywithfrag
 
 
+\dontrun{
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 cli <- GraphqlClient$new(
   url = "https://api.github.com/graphql",

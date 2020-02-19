@@ -10,6 +10,9 @@ a `GraphqlClient` class (R6 class)
 R6 class for constructing GraphQL queries
 }
 \examples{
+x <- GraphqlClient$new()
+x
+
 \dontrun{
 # make a client
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")

@@ -12,7 +12,6 @@ ghql fragment class
 ghql fragment class
 }
 \examples{
-\dontrun{
 # make a fragment class
 frag <- Fragment$new()
 
@@ -43,7 +42,6 @@ frag
 frag$fragments
 frag$fragments$Watchers
 frag$fragments$Stargazers
-}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}

@@ -2,7 +2,11 @@
 #' @description R6 class for constructing GraphQL queries
 #' @export
 #' @return a `GraphqlClient` class (R6 class)
-#' @examples \dontrun{
+#' @examples
+#' x <- GraphqlClient$new()
+#' x
+#' 
+#' \dontrun{
 #' # make a client
 #' token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
 #' cli <- GraphqlClient$new(
