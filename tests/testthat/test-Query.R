@@ -37,8 +37,6 @@ test_that("Query checks queries - and fails as expected", {
   expect_error(qry$query('x', 'query { }'), "1.9: syntax error, unexpected }")
   expect_error(qry$query('x', 'query myQuery { \a }'),
     "1.17: unrecognized character")
-  expect_error(qry$query('x', '\xefquery myquery { field };'),
-    "1.1: unrecognized character <")
   expect_error(qry$query('x', '{ field(arg:\"\b\") }'),
     "1.13-14: unrecognized character")
 })
