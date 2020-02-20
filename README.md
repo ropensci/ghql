@@ -17,7 +17,7 @@ Examples of GraphQL APIs:
 
 Other GraphQL R projects:
 
-* [graphql](https://github.com/ropensci/graphql) - GraphQL query parser
+* [graphql][] - GraphQL query parser
 * [gqlr][] - GraphQL server and query methods
 
 ## GitHub Authentication
@@ -74,7 +74,7 @@ con$load_schema()
 ```
 
 
-## basic query
+## Queries
 
 Make a `Query` class object
 
@@ -82,6 +82,10 @@ Make a `Query` class object
 ```r
 qry <- Query$new()
 ```
+
+When you construct queries we check that they are properly formatted using the 
+[graphql][] that leverages the [libgraphqlparser][] C++ parser. If the query
+is malformed, we return a message as to why the query is malformed.
 
 Get some stargazer counts
 
@@ -252,4 +256,6 @@ con$exec(xxx$queries$query)
 * Please note that this project is released with a [Contributor Code of Conduct][coc]. By participating in this project you agree to abide by its terms.
 
 [gqlr]: https://github.com/schloerke/gqlr
+[graphql]: https://github.com/ropensci/graphql
+[libgraphqlparser]: https://github.com/graphql/libgraphqlparser
 [coc]: https://github.com/ropensci/ghql/blob/master/CODE_OF_CONDUCT.md
