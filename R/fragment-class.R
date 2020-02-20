@@ -1,5 +1,5 @@
-#' ghql fragment class
-#'
+#' @title Fragment
+#' @description ghql fragment class
 #' @export
 #' @return a `Fragment` class (R6 class)
 #' @examples

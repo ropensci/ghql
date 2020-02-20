@@ -14,16 +14,13 @@ test_that("Query client initialization works", {
 test_that("Query query construction works", {
   aa <- Query$new()
 
-	aa$query('myquery', 'query { }')
-
-	aa$queries
-	aa$queries$myquery
+	aa$query('myquery', '{ field(arg:"") }')
 
   expect_is(aa, "Query")
   expect_equal(length(aa$queries), 1)
   expect_named(aa$queries, "myquery")
   expect_named(aa$queries$myquery, c('query', 'fragment'))
-  expect_identical(aa$queries$myquery$query, "query { }")
+  expect_identical(aa$queries$myquery$query, '{ field(arg:"") }')
 })
 
 test_that("Query class fails well", {
@@ -32,5 +29,16 @@ test_that("Query class fails well", {
   rr <- Query$new()
   expect_error(rr$add_fragment(), "argument \"query_name\" is missing")
   expect_error(rr$query('adsfafafd'), "argument \"x\" is missing")
-  expect_error(rr$query(x = 'adsfafafd'), "argument \"name\" is missing")
+})
+
+test_that("Query checks queries - and fails as expected", {
+  qry <- Query$new()  
+  expect_error(qry$query(x = 'adsfafafd'), "syntax error")
+  expect_error(qry$query('x', 'query { }'), "1.9: syntax error, unexpected }")
+  expect_error(qry$query('x', 'query myQuery { \a }'),
+    "1.17: unrecognized character")
+  expect_error(qry$query('x', '\xefquery myquery { field };'),
+    "1.1: unrecognized character <")
+  expect_error(qry$query('x', '{ field(arg:\"\b\") }'),
+    "1.13-14: unrecognized character")
 })

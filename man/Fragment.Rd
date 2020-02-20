@@ -2,13 +2,11 @@
 % Please edit documentation in R/fragment-class.R
 \name{Fragment}
 \alias{Fragment}
-\title{ghql fragment class}
+\title{Fragment}
 \value{
 a `Fragment` class (R6 class)
 }
 \description{
-ghql fragment class
-
 ghql fragment class
 }
 \examples{

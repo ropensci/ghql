@@ -2,26 +2,23 @@
 % Please edit documentation in R/query-class.R
 \name{Query}
 \alias{Query}
-\title{ghql query class}
+\title{Query}
 \value{
 a `Query` class (R6 class)
 }
 \description{
 ghql query class
-
-ghql query class
+}
+\note{
+we run an internal method `check_query()` that runs the public
+method `parse2json()` - if the query doesn't pass the libgraphqlparser
+parser, we return the error message
 }
 \examples{
 # make a client
 qry <- Query$new()
 
 ## define query
-qry$query('myquery', 'query { }')
-qry
-qry$queries
-qry$queries$myquery
-
-## another
 qry$query('query2', '{
   viewer {
     repositories(last: 10, isFork: false, privacy: PUBLIC) {
@@ -61,7 +58,6 @@ qry$query('querywithfrag', '{
     }
   }
 }
-
 fragment Watchers on Repository {
   watchers(first: 3) {
     edges {
@@ -78,11 +74,11 @@ qry$queries$querywithfrag
 
 \dontrun{
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
-cli <- GraphqlClient$new(
+con <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
   headers = list(Authorization = paste0("Bearer ", token))
 )
-cli$exec(qry$queries$querywithfrag)
+jsonlite::fromJSON(con$exec(qry$queries$querywithfrag))
 
 ## use Fragment class fragments generator
 ### define query without fragment, but referring to it
@@ -176,7 +172,7 @@ define query in a character string
 \describe{
 \item{\code{name}}{(character) name of the query}
 
-\item{\code{x}}{(character) the query itself}
+\item{\code{x}}{(character) the query}
 }
 \if{html}{\out{</div>}}
 }
@@ -210,13 +206,16 @@ nothing returned; sets the fragment with the query
 \subsection{Method \code{parse2json()}}{
 parse query string with libgraphqlparser and get back JSON
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Query$parse2json(query)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Query$parse2json(query, parse_schema = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{query}}{a query}
+\item{\code{query}}{(character) a query to parse}
+
+\item{\code{parse_schema}}{(logical) enable schema definition parsing?
+default: `FAlSE`}
 }
 \if{html}{\out{</div>}}
 }

@@ -1,5 +1,5 @@
-#' ghql query class
-#'
+#' @title Query
+#' @description ghql query class
 #' @export
 #' @return a `Query` class (R6 class)
 #' @examples
@@ -7,12 +7,6 @@
 #' qry <- Query$new()
 #'
 #' ## define query
-#' qry$query('myquery', 'query { }')
-#' qry
-#' qry$queries
-#' qry$queries$myquery
-#'
-#' ## another
 #' qry$query('query2', '{
 #'   viewer {
 #'     repositories(last: 10, isFork: false, privacy: PUBLIC) {
@@ -52,7 +46,6 @@
 #'     }
 #'   }
 #' }
-#'
 #' fragment Watchers on Repository {
 #'   watchers(first: 3) {
 #'     edges {
@@ -69,11 +62,11 @@
 #'
 #' \dontrun{
 #' token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
-#' cli <- GraphqlClient$new(
+#' con <- GraphqlClient$new(
 #'   url = "https://api.github.com/graphql",
 #'   headers = list(Authorization = paste0("Bearer ", token))
 #' )
-#' cli$exec(qry$queries$querywithfrag)
+#' jsonlite::fromJSON(con$exec(qry$queries$querywithfrag))
 #'
 #' ## use Fragment class fragments generator
 #' ### define query without fragment, but referring to it
@@ -144,14 +137,18 @@ Query <- R6::R6Class(
 
     #' @description define query in a character string
     #' @param name (character) name of the query
-    #' @param x (character) the query itself
+    #' @param x (character) the query
     #' @return nothing returned; sets query with `name` internally
+    #' @note we run an internal method `check_query()` that runs the public
+    #' method `parse2json()` - if the query doesn't pass the libgraphqlparser
+    #' parser, we return the error message
     query = function(name, x) {
+      private$check_query(x)
       self$queries <-
         c(
           self$queries,
           stats::setNames(
-            list(structure(make_query(x), class = "query")),
+            list(structure(private$make_query(x), class = "query")),
             name
           )
         )
@@ -172,26 +169,29 @@ Query <- R6::R6Class(
     },
 
     #' @description parse query string with libgraphqlparser and get back JSON
-    #' @param query a query
+    #' @param query (character) a query to parse
+    #' @param parse_schema (logical) enable schema definition parsing?
+    #' default: `FAlSE`
     #' @return adf
-    parse2json = function(query) {
-      graphql::graphql2json(query)
+    parse2json = function(query, parse_schema = FALSE) {
+      graphql::graphql2json(query, parse_schema)
     }
   ),
 
   private = list(
-    build_query = function() {
-      "x"
+    make_query = function(query = list(), fragment = list()) {
+      list(
+        query = query,
+        fragment = fragment
+      )
+    },
+
+    check_query = function(query) {
+      z <- tryCatch(self$parse2json(query), error = function(e) e)
+      if (inherits(z, "error")) stop(z$message, call.=FALSE)
     }
   )
 )
-
-make_query <- function(query = list(), fragment = list()) {
-  list(
-    query = query,
-    fragment = fragment
-  )
-}
 
 #' @export
 print.query <- function(x, ...) {
