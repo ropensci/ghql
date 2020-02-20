@@ -13,19 +13,22 @@ GraphQL - <https://graphql.org>
 Examples of GraphQL APIs:
 
 * GitHub: https://developer.github.com/v4/guides/intro-to-graphql/
-* Opentargets: http://open-targets-genetics.appspot.com/
+* Opentargets: https://genetics-docs.opentargets.org/technical-pipeline/graphql-api
 
 Other GraphQL R projects:
 
 * [graphql](https://github.com/ropensci/graphql) - GraphQL query parser
 * [gqlr][] - GraphQL server and query methods
 
-## Github Authentication
+## GitHub Authentication
+
+Note: To be clear, this R package isn't just for the GitHub GraphQL API, but it
+is the most public GraphQL API we can think of, so is used in examples
+throughout here.
 
 See https://developer.github.com/v4/guides/intro-to-graphql/ for getting an OAuth token.
 
 Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
-before trying this pkg.
 
 ## Install
 
@@ -54,7 +57,7 @@ library("jsonlite")
 
 ```r
 token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
-cli <- GraphqlClient$new(
+con <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
   headers = list(Authorization = paste0("Bearer ", token))
 )
@@ -67,7 +70,7 @@ load the schema in this case
 
 
 ```r
-cli$load_schema()
+con$load_schema()
 ```
 
 
@@ -123,7 +126,7 @@ qry$queries$mydata
 
 ```r
 # returns json
-(x <- cli$exec(qry$queries$mydata))
+(x <- con$exec(qry$queries$mydata))
 #> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":124}}},{\"node\":{\"name\":\"extcite\",\"stargazers\":{\"totalCount\":5}}},{\"node\":{\"name\":\"serrano\",\"stargazers\":{\"totalCount\":19}}},{\"node\":{\"name\":\"soylocs\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}}]}}}}\n"
 # parse to an R list
 jsonlite::fromJSON(x)
@@ -139,6 +142,64 @@ jsonlite::fromJSON(x)
 #> 5 makeregistry               3
 ```
 
+## Parameterize a query by a variable
+
+Define a query
+
+
+```r
+qry <- Query$new()
+qry$query('getgeninfo', 'query getGeneInfo($genId: String!){
+  geneInfo(geneId: $genId) {
+    id
+    symbol
+    chromosome
+    start
+    end
+    bioType
+    __typename
+  }
+}')
+```
+
+Define a variable as a named list
+
+
+```r
+variables <- list(genId = 'ENSG00000137033')
+```
+
+Creat a clint and make a request, passing in the query and then the variables
+
+
+```r
+con <- GraphqlClient$new('https://genetics-api.opentargets.io/graphql')
+res <- con$exec(qry$queries$getgeninfo, variables)
+jsonlite::fromJSON(res)
+#> $data
+#> $data$geneInfo
+#> $data$geneInfo$id
+#> [1] "ENSG00000137033"
+#> 
+#> $data$geneInfo$symbol
+#> [1] "IL33"
+#> 
+#> $data$geneInfo$chromosome
+#> [1] "9"
+#> 
+#> $data$geneInfo$start
+#> [1] 6215786
+#> 
+#> $data$geneInfo$end
+#> [1] 6257983
+#> 
+#> $data$geneInfo$bioType
+#> [1] "protein_coding"
+#> 
+#> $data$geneInfo$`__typename`
+#> [1] "Gene"
+```
+
 ## run a local GraphQL server
 
 * Copy the `server.js` file from this package located at `inst/server.js` somewhere on your machine. Can locate it on your machine like `system.file("js/server.js", package = "ghql")`. Or you can run the file from where it's at, up to you.
@@ -149,7 +210,7 @@ jsonlite::fromJSON(x)
 
 
 ```r
-(cli <- GraphqlClient$new("http://localhost:4000/graphql"))
+(con <- GraphqlClient$new("http://localhost:4000/graphql"))
 #> <ghql client>
 #>   url: http://localhost:4000/graphql
 ```
@@ -173,7 +234,7 @@ xxx$query('query', '{
 
 
 ```r
-cli$exec(xxx$queries$query)
+con$exec(xxx$queries$query)
 #> $data
 #> $data$`__schema`
 #> $data$`__schema`$queryType
