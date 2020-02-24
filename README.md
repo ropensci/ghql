@@ -6,7 +6,7 @@ ghql
 [![Build Status](https://travis-ci.org/ropensci/ghql.svg?branch=master)](https://travis-ci.org/ropensci/ghql)
 [![codecov.io](https://codecov.io/github/ropensci/ghql/coverage.svg?branch=master)](https://codecov.io/github/ropensci/ghql?branch=master)
 
-`ghql` - general purpose GraphQL client
+`ghql` - a GraphQL client for R
 
 GraphQL - <https://graphql.org>
 
@@ -15,7 +15,7 @@ Examples of GraphQL APIs:
 * GitHub: https://developer.github.com/v4/guides/intro-to-graphql/
 * Opentargets: https://genetics-docs.opentargets.org/technical-pipeline/graphql-api
 
-Other GraphQL R projects:
+Other GraphQL R packages:
 
 * [graphql][] - GraphQL query parser
 * [gqlr][] - GraphQL server and query methods
