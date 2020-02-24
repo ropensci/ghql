@@ -1,7 +1,11 @@
 Package: ghql
 Type: Package
-Title: General Purpose GraphQL Client
-Description: General purpose GraphQL client.
+Title: General Purpose 'GraphQL' Client
+Description: A 'GraphQL' client, with an R6 interface for initializing
+    a connection to a 'GraphQL' instance, and methods for constructing
+    queries, including fragments and parameterized queries. Queries
+    are checked with the 'libgraphqlparser' C++ parser via the
+    'gaphql' package.
 Version: 0.1.0
 Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com",
