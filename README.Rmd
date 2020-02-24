@@ -149,6 +149,44 @@ res <- con$exec(qry$queries$getgeninfo, variables)
 jsonlite::fromJSON(res)
 ```
 
+## Example: Datacite
+
+[Datacite](https://datacite.org/) provides DOIs for research data. Check out the 
+[Datacite GraphQL docs](https://support.datacite.org/docs/datacite-graphql-api-guide)
+to get started. A minimal example:
+
+```{r}
+con <- GraphqlClient$new("https://api.datacite.org/graphql")
+qry <- Query$new()
+qry$query('dc', '{
+  publications(query: "climate") {
+    totalCount
+
+    nodes {
+      id
+      titles {
+        title
+      }
+      descriptions {
+        description
+      }
+      creators {
+        name
+        familyName
+      }
+      fundingReferences {
+        funderIdentifier
+        funderName
+        awardTitle
+        awardNumber
+      }
+    }
+  }
+}')
+res <- con$exec(qry$queries$dc)
+head(jsonlite::fromJSON(res)$data$publications$nodes)
+```
+
 ## run a local GraphQL server
 
 * Copy the `server.js` file from this package located at `inst/server.js` somewhere on your machine. Can locate it on your machine like `system.file("js/server.js", package = "ghql")`. Or you can run the file from where it's at, up to you.

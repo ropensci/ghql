@@ -204,6 +204,66 @@ jsonlite::fromJSON(res)
 #> [1] "Gene"
 ```
 
+## Example: Datacite
+
+[Datacite](https://datacite.org/) provides DOIs for research data. Check out the 
+[Datacite GraphQL docs](https://support.datacite.org/docs/datacite-graphql-api-guide)
+to get started. A minimal example:
+
+
+```r
+con <- GraphqlClient$new("https://api.datacite.org/graphql")
+qry <- Query$new()
+qry$query('dc', '{
+  publications(query: "climate") {
+    totalCount
+
+    nodes {
+      id
+      titles {
+        title
+      }
+      descriptions {
+        description
+      }
+      creators {
+        name
+        familyName
+      }
+      fundingReferences {
+        funderIdentifier
+        funderName
+        awardTitle
+        awardNumber
+      }
+    }
+  }
+}')
+res <- con$exec(qry$queries$dc)
+head(jsonlite::fromJSON(res)$data$publications$nodes)
+#>                                  id
+#> 1 https://doi.org/10.7915/cig1zc7s1
+#> 2 https://doi.org/10.7915/cig3804z3
+#> 3 https://doi.org/10.7915/cig56d5q6
+#> 4 https://doi.org/10.7915/cig4jm245
+#> 5 https://doi.org/10.7915/cig0ns0kz
+#> 6 https://doi.org/10.7915/cig0xp6v4
+#>                                                                                                           titles
+#> 1                                                                               Forest Growth and Climate Change
+#> 2                                                                                        Forest Fire and Climate
+#> 3                                                           Climate and Water Policy Workshop: Executive Summary
+#> 4                                                                                                  Forest Change
+#> 5                                                             Impacts of Climate Change on PNW Timber Production
+#> 6 HB 1303 Interim Report: A Comprehensive Assessment of the Impacts of Climate Change on the State of Washington
+#>   descriptions                  creators fundingReferences
+#> 1         NULL Climate Impacts Group, NA              NULL
+#> 2         NULL Climate Impacts Group, NA              NULL
+#> 3         NULL Climate Impacts Group, NA              NULL
+#> 4         NULL Climate Impacts Group, NA              NULL
+#> 5         NULL Climate Impacts Group, NA              NULL
+#> 6         NULL Climate Impacts Group, NA              NULL
+```
+
 ## run a local GraphQL server
 
 * Copy the `server.js` file from this package located at `inst/server.js` somewhere on your machine. Can locate it on your machine like `system.file("js/server.js", package = "ghql")`. Or you can run the file from where it's at, up to you.
