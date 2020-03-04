@@ -3,8 +3,12 @@ ghql
 
 
 
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![cran checks](https://cranchecks.info/badges/worst/ghql)](https://cranchecks.info/pkgs/ghql)
 [![Build Status](https://travis-ci.org/ropensci/ghql.svg?branch=master)](https://travis-ci.org/ropensci/ghql)
 [![codecov.io](https://codecov.io/github/ropensci/ghql/coverage.svg?branch=master)](https://codecov.io/github/ropensci/ghql?branch=master)
+[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/ghql)](https://github.com/metacran/cranlogs.app)
+[![cran version](https://www.r-pkg.org/badges/version/ghql)](https://cran.r-project.org/package=ghql)
 
 `ghql` - a GraphQL client for R
 
@@ -131,7 +135,7 @@ qry$queries$mydata
 ```r
 # returns json
 (x <- con$exec(qry$queries$mydata))
-#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":124}}},{\"node\":{\"name\":\"extcite\",\"stargazers\":{\"totalCount\":5}}},{\"node\":{\"name\":\"serrano\",\"stargazers\":{\"totalCount\":19}}},{\"node\":{\"name\":\"soylocs\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}}]}}}}\n"
+#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":124}}},{\"node\":{\"name\":\"popler_API\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"veyor\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"serrano\",\"stargazers\":{\"totalCount\":19}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}}]}}}}\n"
 # parse to an R list
 jsonlite::fromJSON(x)
 #> $data
@@ -140,9 +144,9 @@ jsonlite::fromJSON(x)
 #> $data$repositoryOwner$repositories$edges
 #>      node.name node.totalCount
 #> 1    Headstart             124
-#> 2      extcite               5
-#> 3      serrano              19
-#> 4      soylocs               2
+#> 2   popler_API               0
+#> 3        veyor               2
+#> 4      serrano              19
 #> 5 makeregistry               3
 ```
 
@@ -243,18 +247,18 @@ res <- con$exec(qry$queries$dc)
 head(jsonlite::fromJSON(res)$data$publications$nodes)
 #>                                  id
 #> 1 https://doi.org/10.7915/cig1zc7s1
-#> 2 https://doi.org/10.7915/cig3804z3
-#> 3 https://doi.org/10.7915/cig56d5q6
-#> 4 https://doi.org/10.7915/cig4jm245
-#> 5 https://doi.org/10.7915/cig0ns0kz
-#> 6 https://doi.org/10.7915/cig0xp6v4
+#> 2 https://doi.org/10.7915/cig56d5q6
+#> 3 https://doi.org/10.7915/cig4jm245
+#> 4 https://doi.org/10.7915/cig0ns0kz
+#> 5 https://doi.org/10.7915/cig0xp6v4
+#> 6 https://doi.org/10.7915/cig298830
 #>                                                                                                           titles
 #> 1                                                                               Forest Growth and Climate Change
-#> 2                                                                                        Forest Fire and Climate
-#> 3                                                           Climate and Water Policy Workshop: Executive Summary
-#> 4                                                                                                  Forest Change
-#> 5                                                             Impacts of Climate Change on PNW Timber Production
-#> 6 HB 1303 Interim Report: A Comprehensive Assessment of the Impacts of Climate Change on the State of Washington
+#> 2                                                           Climate and Water Policy Workshop: Executive Summary
+#> 3                                                                                                  Forest Change
+#> 4                                                             Impacts of Climate Change on PNW Timber Production
+#> 5 HB 1303 Interim Report: A Comprehensive Assessment of the Impacts of Climate Change on the State of Washington
+#> 6                                               Overview of Climate Change Impacts in the U.S. Pacific Northwest
 #>   descriptions                  creators fundingReferences
 #> 1         NULL Climate Impacts Group, NA              NULL
 #> 2         NULL Climate Impacts Group, NA              NULL
