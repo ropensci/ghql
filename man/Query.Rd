@@ -143,6 +143,7 @@ qry$queries$queryfrag
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 print method for the `Query` class
 \subsection{Usage}{
@@ -161,6 +162,7 @@ print method for the `Query` class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-query"></a>}}
+\if{latex}{\out{\hypertarget{method-query}{}}}
 \subsection{Method \code{query()}}{
 define query in a character string
 \subsection{Usage}{
@@ -182,6 +184,7 @@ nothing returned; sets query with `name` internally
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-add_fragment"></a>}}
+\if{latex}{\out{\hypertarget{method-add_fragment}{}}}
 \subsection{Method \code{add_fragment()}}{
 add a fragment to a query
 \subsection{Usage}{
@@ -203,6 +206,7 @@ nothing returned; sets the fragment with the query
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-parse2json"></a>}}
+\if{latex}{\out{\hypertarget{method-parse2json}{}}}
 \subsection{Method \code{parse2json()}}{
 parse query string with libgraphqlparser and get back JSON
 \subsection{Usage}{

@@ -57,6 +57,7 @@ frag$fragments$Stargazers
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 print method for the `Fragment` class
 \subsection{Usage}{
@@ -75,6 +76,7 @@ print method for the `Fragment` class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fragment"></a>}}
+\if{latex}{\out{\hypertarget{method-fragment}{}}}
 \subsection{Method \code{fragment()}}{
 create a fragment by name
 \subsection{Usage}{

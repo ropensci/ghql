@@ -23,7 +23,7 @@ Imports:
     graphql
 Suggests:
     testthat
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 X-schema.org-applicationCategory: Web
 X-schema.org-keywords: http, API, web-services, curl, data, GraphQL
 X-schema.org-isPartOf: https://ropensci.org

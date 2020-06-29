@@ -161,6 +161,7 @@ cli$exec(qry$queries$queryfrag)
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new `GraphqlClient` object
 \subsection{Usage}{
@@ -182,6 +183,7 @@ A new `GraphqlClient` object
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 print method for the `GraphqlClient` class
 \subsection{Usage}{
@@ -200,6 +202,7 @@ print method for the `GraphqlClient` class
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ping"></a>}}
+\if{latex}{\out{\hypertarget{method-ping}{}}}
 \subsection{Method \code{ping()}}{
 ping the GraphQL server
 \subsection{Usage}{
@@ -219,6 +222,7 @@ ping the GraphQL server
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-load_schema"></a>}}
+\if{latex}{\out{\hypertarget{method-load_schema}{}}}
 \subsection{Method \code{load_schema()}}{
 load schema, from URL or local file
 \subsection{Usage}{
@@ -242,6 +246,7 @@ nothing, loads schema into `$schema` slot
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-dump_schema"></a>}}
+\if{latex}{\out{\hypertarget{method-dump_schema}{}}}
 \subsection{Method \code{dump_schema()}}{
 dump schema to a local file
 \subsection{Usage}{
@@ -261,6 +266,7 @@ nothing, writes schema to `file`
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-schema2json"></a>}}
+\if{latex}{\out{\hypertarget{method-schema2json}{}}}
 \subsection{Method \code{schema2json()}}{
 convert schema to JSON
 \subsection{Usage}{
@@ -280,6 +286,7 @@ json
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fragment"></a>}}
+\if{latex}{\out{\hypertarget{method-fragment}{}}}
 \subsection{Method \code{fragment()}}{
 load schema, from URL or local file
 \subsection{Usage}{
@@ -301,6 +308,7 @@ nothing returned; sets fragments internally
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-exec"></a>}}
+\if{latex}{\out{\hypertarget{method-exec}{}}}
 \subsection{Method \code{exec()}}{
 execute the query
 \subsection{Usage}{
@@ -327,6 +335,7 @@ character string of response, if successful
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-prep_query"></a>}}
+\if{latex}{\out{\hypertarget{method-prep_query}{}}}
 \subsection{Method \code{prep_query()}}{
 not used right now
 \subsection{Usage}{
