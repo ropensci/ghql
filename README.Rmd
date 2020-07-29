@@ -89,7 +89,7 @@ qry <- Query$new()
 ```
 
 When you construct queries we check that they are properly formatted using the 
-[graphql][] that leverages the [libgraphqlparser][] C++ parser. If the query
+[graphql][] package that leverages the [libgraphqlparser][] C++ parser. If the query
 is malformed, we return a message as to why the query is malformed.
 
 Get some stargazer counts
