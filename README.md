@@ -88,7 +88,7 @@ qry <- Query$new()
 ```
 
 When you construct queries we check that they are properly formatted using the 
-[graphql][] that leverages the [libgraphqlparser][] C++ parser. If the query
+[graphql][] package that leverages the [libgraphqlparser][] C++ parser. If the query
 is malformed, we return a message as to why the query is malformed.
 
 Get some stargazer counts
@@ -135,7 +135,7 @@ qry$queries$mydata
 ```r
 # returns json
 (x <- con$exec(qry$queries$mydata))
-#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":124}}},{\"node\":{\"name\":\"popler_API\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"veyor\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"serrano\",\"stargazers\":{\"totalCount\":19}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}}]}}}}\n"
+#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":132}}},{\"node\":{\"name\":\"crul\",\"stargazers\":{\"totalCount\":74}}},{\"node\":{\"name\":\"veyor\",\"stargazers\":{\"totalCount\":2}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}},{\"node\":{\"name\":\"extcite\",\"stargazers\":{\"totalCount\":6}}}]}}}}\n"
 # parse to an R list
 jsonlite::fromJSON(x)
 #> $data
@@ -143,11 +143,11 @@ jsonlite::fromJSON(x)
 #> $data$repositoryOwner$repositories
 #> $data$repositoryOwner$repositories$edges
 #>      node.name node.totalCount
-#> 1    Headstart             124
-#> 2   popler_API               0
+#> 1    Headstart             132
+#> 2         crul              74
 #> 3        veyor               2
-#> 4      serrano              19
-#> 5 makeregistry               3
+#> 4 makeregistry               3
+#> 5      extcite               6
 ```
 
 ## Parameterize a query by a variable
@@ -245,27 +245,41 @@ qry$query('dc', '{
 }')
 res <- con$exec(qry$queries$dc)
 head(jsonlite::fromJSON(res)$data$publications$nodes)
-#>                                  id
-#> 1 https://doi.org/10.7915/cig1zc7s1
-#> 2 https://doi.org/10.7915/cig56d5q6
-#> 3 https://doi.org/10.7915/cig4jm245
-#> 4 https://doi.org/10.7915/cig0ns0kz
-#> 5 https://doi.org/10.7915/cig0xp6v4
-#> 6 https://doi.org/10.7915/cig298830
-#>                                                                                                           titles
-#> 1                                                                               Forest Growth and Climate Change
-#> 2                                                           Climate and Water Policy Workshop: Executive Summary
-#> 3                                                                                                  Forest Change
-#> 4                                                             Impacts of Climate Change on PNW Timber Production
-#> 5 HB 1303 Interim Report: A Comprehensive Assessment of the Impacts of Climate Change on the State of Washington
-#> 6                                               Overview of Climate Change Impacts in the U.S. Pacific Northwest
-#>   descriptions                  creators fundingReferences
-#> 1         NULL Climate Impacts Group, NA              NULL
-#> 2         NULL Climate Impacts Group, NA              NULL
-#> 3         NULL Climate Impacts Group, NA              NULL
-#> 4         NULL Climate Impacts Group, NA              NULL
-#> 5         NULL Climate Impacts Group, NA              NULL
-#> 6         NULL Climate Impacts Group, NA              NULL
+#>                                     id
+#> 1 https://doi.org/10.4122/1.1000000046
+#> 2 https://doi.org/10.4122/1.1000000047
+#> 3 https://doi.org/10.4122/1.1000000048
+#> 4 https://doi.org/10.4122/1.1000000054
+#> 5 https://doi.org/10.4122/1.1000000055
+#> 6 https://doi.org/10.4122/1.1000000056
+#>                                                     titles
+#> 1                    Single Cell Protein from Landfill Gas
+#> 2                    Single Cell Protein from Landfill Gas
+#> 3                    Single Cell Protein from Landfill Gas
+#> 4                        Reengineering of Tietgenkollegiet
+#> 5                        Reengineering of Tietgenkollegiet
+#> 6 Reengineering of Tietgen Kollegiet into a green building
+#>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       descriptions
+#> 1 Municipal solid waste (MSW) landfills are one of the largest human-generated sources of methane emissions in the United States and other countries globally. Methane is believed to be a very potent greenhouse gas that is a key contributor to global climate change, over 21 times stronger than CO2. Methane also has a short (10-year) atmospheric life. Because methane is both potent and short-lived, reducing methane emissions from MSW landfills is one of the best ways to achieve a near-term beneficial impact in mitigating global climate change. The United States Environmental Protection Agency estimates that a landfill gas (LFG) project will capture roughly 60-90% of the methane emitted from the landfill, depending on system design and effectiveness. The captured methane can be then purified and used for industrial applications, as in this case the production of SCP. Utilizing methane in this way decreases its demand from fossil fuels which is its traditional source.
+#> 2 Municipal solid waste (MSW) landfills are one of the largest human-generated sources of methane emissions in the United States and other countries globally. Methane is believed to be a very potent greenhouse gas that is a key contributor to global climate change, over 21 times stronger than CO2. Methane also has a short (10-year) atmospheric life. Because methane is both potent and short-lived, reducing methane emissions from MSW landfills is one of the best ways to achieve a near-term beneficial impact in mitigating global climate change. The United States Environmental Protection Agency estimates that a landfill gas (LFG) project will capture roughly 60-90% of the methane emitted from the landfill, depending on system design and effectiveness. The captured methane can be then purified and used for industrial applications, as in this case the production of SCP. Utilizing methane in this way decreases its demand from fossil fuels which is its traditional source.
+#> 3 Municipal solid waste (MSW) landfills are one of the largest human-generated sources of methane emissions in the United States and other countries globally. Methane is believed to be a very potent greenhouse gas that is a key contributor to global climate change, over 21 times stronger than CO2. Methane also has a short (10-year) atmospheric life. Because methane is both potent and short-lived, reducing methane emissions from MSW landfills is one of the best ways to achieve a near-term beneficial impact in mitigating global climate change. The United States Environmental Protection Agency estimates that a landfill gas (LFG) project will capture roughly 60-90% of the methane emitted from the landfill, depending on system design and effectiveness. The captured methane can be then purified and used for industrial applications, as in this case the production of SCP. Utilizing methane in this way decreases its demand from fossil fuels which is its traditional source.
+#> 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Integrated functional design project containing reengineering of Tietgenkollegiet. The purpose is to meet the requirements of low energy class 1, and a satisfying inddor air climate and level of daylight.
+#> 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Integrated functional design project containing reengineering of Tietgenkollegiet. The purpose is to meet the requirements of low energy class 1, and a satisfying inddor air climate and level of daylight.
+#> 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Reengineering of Tietgen Kollegiet into a green building in terms of energy consumption and indoor climate.
+#>                                                                                                                                            creators
+#> 1                                                                                 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
+#> 2                                                                                 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
+#> 3                                                                                 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
+#> 4                           Chaachouh, Hassan Valid, Pedersen, Stine Holst, Alilou, Zahra, Hvid, Christian Anker, Chaachouh, Pedersen, Alilou, Hvid
+#> 5                           Chaachouh, Hassan Valid, Pedersen, Stine Holst, Alilou, Zahra, Hvid, Christian Anker, Chaachouh, Pedersen, Alilou, Hvid
+#> 6 Løvborg, Daniel, Holck, Jakob Trier, Sørensen, Jannie Bakkær, Birkemose, Stig, Hviid, Christian Anker, Løvborg, Holck, Sørensen, Birkemose, Hviid
+#>   fundingReferences
+#> 1              NULL
+#> 2              NULL
+#> 3              NULL
+#> 4              NULL
+#> 5              NULL
+#> 6              NULL
 ```
 
 ## run a local GraphQL server
