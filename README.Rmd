@@ -25,6 +25,7 @@ Examples of GraphQL APIs:
 
 * GitHub: https://developer.github.com/v4/guides/intro-to-graphql/
 * Opentargets: https://genetics-docs.opentargets.org/technical-pipeline/graphql-api
+* Countries GraphQL API: https://github.com/trevorblades/countries
 
 Other GraphQL R packages:
 
@@ -58,6 +59,7 @@ remotes::install_github("ropensci/ghql")
 ```{r}
 library("ghql")
 library("jsonlite")
+library(dplyr)
 ```
 
 ## initialize client
@@ -189,6 +191,67 @@ qry$query('dc', '{
 }')
 res <- con$exec(qry$queries$dc)
 head(jsonlite::fromJSON(res)$data$publications$nodes)
+```
+## Example: Countries Data
+A public GraphQL API for information about countries, continents, and languages. This project uses Countries List and provinces as data sources, so the schema follows the shape of that data, with a few exceptions:
+
+Link to the GraphQL schema api
+```{r}
+link <- 'https://countries.trevorblades.com/'
+```
+
+Create a new graphqlClient object 
+```{r}
+conn <- GraphqlClient$new(url = link)
+```
+
+Define a Graphql Query
+```{r}
+query <- '
+query($code: ID!){
+  country(code: $code){
+    name
+    native
+    capital
+    currency
+    phone
+    languages{
+      code
+      name
+    }
+  }
+}'
+```
+
+The `ghql` query class and define query in a character string
+```{r}
+new <- Query$new()$query('link', query)
+```
+
+Inspecting the schema
+```{r}
+new$link
+```
+
+define a variable as a named list
+```{r}
+variable <- list(
+  code = "DE"
+)
+```
+
+Making a request, passing in the query and then the variables. Then you convert the raw object to a structured json object
+```{r}
+result <- con$exec(new$link, variables = variable) %>% 
+  fromJSON(flatten = F)
+result
+```
+
+Convert the json data into a tibble object
+```{r}
+country_data <- result$data$country %>% 
+  as_tibble()
+country_data
 ```
 
 ## run a local GraphQL server
