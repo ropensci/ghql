@@ -281,6 +281,104 @@ head(jsonlite::fromJSON(res)$data$publications$nodes)
 #> 5              NULL
 #> 6              NULL
 ```
+## Example: Countries Data
+A public GraphQL API for information about countries, continents, and languages. This project uses Countries List and provinces as data sources, so the schema follows the shape of that data, with a few exceptions:
+
+Link to the GraphQL schema api
+```r
+link <- 'https://countries.trevorblades.com/'
+```
+
+Create a new graphqlClient object 
+```r
+conn <- GraphqlClient$new(url = link)
+```
+
+Define a Graphql Query
+```r
+query <- '
+query($code: ID!){
+  country(code: $code){
+    name
+    native
+    capital
+    currency
+    phone
+    languages{
+      code
+      name
+    }
+  }
+}'
+```
+
+The `ghql` query class and define query in a character string
+```r
+new <- Query$new()$query('link', query)
+```
+
+Inspecting the schema
+```r
+new$link
+## query($code: ID!){
+##   country(code: $code){
+##     name
+##     native
+##     capital
+##     currency
+##     phone
+##     languages{
+##       code
+##       name
+##     }
+##   }
+## }
+```
+
+Define a variable as a named list
+```r
+variable <- list(
+  code = "DE"
+)
+```
+
+Let's make a request, passing in the query and then the variables. After all that you can convert the raw object to a structured json object
+```r
+result <- conn$exec(new$link, variables = variable) %>% 
+  fromJSON(flatten = F)
+result
+## $data
+## $data$country
+## $data$country$name
+## [1] "Germany"
+## 
+## $data$country$native
+## [1] "Deutschland"
+## 
+## $data$country$capital
+## [1] "Berlin"
+## 
+## $data$country$currency
+## [1] "EUR"
+## 
+## $data$country$phone
+## [1] "49"
+## 
+## $data$country$languages
+##   code   name
+## 1   de German
+```
+
+Convert the json data into a tibble object
+```r
+country_data <- result$data$country %>% 
+  as_tibble()
+country_data
+## # A tibble: 1 x 6
+##   name    native      capital currency phone languages$code $name 
+##   <chr>   <chr>       <chr>   <chr>    <chr> <chr>          <chr> 
+## 1 Germany Deutschland Berlin  EUR      49    de             German
+```
 
 ## run a local GraphQL server
 
