@@ -18,6 +18,7 @@ Examples of GraphQL APIs:
 
 * GitHub: https://developer.github.com/v4/guides/intro-to-graphql/
 * Opentargets: https://genetics-docs.opentargets.org/technical-pipeline/graphql-api
+* Countries GraphQL API: https://github.com/trevorblades/countries
 
 Other GraphQL R packages:
 
@@ -54,6 +55,7 @@ remotes::install_github("ropensci/ghql")
 ```r
 library("ghql")
 library("jsonlite")
+library(dplyr)
 ```
 
 ## initialize client
