@@ -59,7 +59,7 @@ remotes::install_github("ropensci/ghql")
 ```{r}
 library("ghql")
 library("jsonlite")
-library(dplyr)
+library("dplyr")
 ```
 
 ## initialize client
@@ -192,6 +192,7 @@ qry$query('dc', '{
 res <- con$exec(qry$queries$dc)
 head(jsonlite::fromJSON(res)$data$publications$nodes)
 ```
+
 ## Example: Countries Data
 A public GraphQL API for information about countries, continents, and languages. This project uses Countries List and provinces as data sources, so the schema follows the shape of that data, with a few exceptions:
 
