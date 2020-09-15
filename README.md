@@ -16,7 +16,7 @@ GraphQL - <https://graphql.org>
 
 Examples of GraphQL APIs:
 
-* GitHub: https://developer.github.com/v4/guides/intro-to-graphql/
+* GitHub: https://docs.github.com/en/graphql/guides/introduction-to-graphql
 * Opentargets: https://genetics-docs.opentargets.org/technical-pipeline/graphql-api
 * Countries GraphQL API: https://github.com/trevorblades/countries
 
@@ -31,7 +31,7 @@ Note: To be clear, this R package isn't just for the GitHub GraphQL API, but it
 is the most public GraphQL API we can think of, so is used in examples
 throughout here.
 
-See https://developer.github.com/v4/guides/intro-to-graphql/ for getting an OAuth token.
+See https://docs.github.com/en/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql for getting an OAuth token.
 
 Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
 
@@ -137,7 +137,7 @@ qry$queries$mydata
 ```r
 # returns json
 (x <- con$exec(qry$queries$mydata))
-#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":133}}},{\"node\":{\"name\":\"orcoastchall\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"mregions\",\"stargazers\":{\"totalCount\":13}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}},{\"node\":{\"name\":\"scott\",\"stargazers\":{\"totalCount\":4}}}]}}}}\n"
+#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":134}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}},{\"node\":{\"name\":\"itis-lookup\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"SSOAP\",\"stargazers\":{\"totalCount\":1}}},{\"node\":{\"name\":\"gbifrb\",\"stargazers\":{\"totalCount\":2}}}]}}}}\n"
 # parse to an R list
 jsonlite::fromJSON(x)
 #> $data
@@ -145,11 +145,11 @@ jsonlite::fromJSON(x)
 #> $data$repositoryOwner$repositories
 #> $data$repositoryOwner$repositories$edges
 #>      node.name node.totalCount
-#> 1    Headstart             133
-#> 2 orcoastchall               0
-#> 3     mregions              13
-#> 4 makeregistry               3
-#> 5        scott               4
+#> 1    Headstart             134
+#> 2 makeregistry               3
+#> 3  itis-lookup               0
+#> 4        SSOAP               1
+#> 5       gbifrb               2
 ```
 
 ## Parameterize a query by a variable

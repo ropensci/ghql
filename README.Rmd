@@ -23,7 +23,7 @@ GraphQL - <https://graphql.org>
 
 Examples of GraphQL APIs:
 
-* GitHub: https://developer.github.com/v4/guides/intro-to-graphql/
+* GitHub: https://docs.github.com/en/graphql/guides/introduction-to-graphql
 * Opentargets: https://genetics-docs.opentargets.org/technical-pipeline/graphql-api
 * Countries GraphQL API: https://github.com/trevorblades/countries
 
@@ -38,7 +38,7 @@ Note: To be clear, this R package isn't just for the GitHub GraphQL API, but it
 is the most public GraphQL API we can think of, so is used in examples
 throughout here.
 
-See https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql for getting an OAuth token.
+See https://docs.github.com/en/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql for getting an OAuth token.
 
 Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
 
