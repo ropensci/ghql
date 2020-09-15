@@ -38,7 +38,7 @@ Note: To be clear, this R package isn't just for the GitHub GraphQL API, but it
 is the most public GraphQL API we can think of, so is used in examples
 throughout here.
 
-See https://developer.github.com/v4/guides/intro-to-graphql/ for getting an OAuth token.
+See https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql for getting an OAuth token.
 
 Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
 
