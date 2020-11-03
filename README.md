@@ -5,7 +5,7 @@ ghql
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![cran checks](https://cranchecks.info/badges/worst/ghql)](https://cranchecks.info/pkgs/ghql)
-[![Build Status](https://travis-ci.org/ropensci/ghql.svg?branch=master)](https://travis-ci.org/ropensci/ghql)
+[![R-check](https://github.com/ropensci/ghql/workflows/R-check/badge.svg)](https://github.com/ropensci/ghql/actions?query=workflow%3AR-check)
 [![codecov.io](https://codecov.io/github/ropensci/ghql/coverage.svg?branch=master)](https://codecov.io/github/ropensci/ghql?branch=master)
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/ghql)](https://github.com/metacran/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/ghql)](https://cran.r-project.org/package=ghql)
@@ -137,19 +137,19 @@ qry$queries$mydata
 ```r
 # returns json
 (x <- con$exec(qry$queries$mydata))
-#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":134}}},{\"node\":{\"name\":\"makeregistry\",\"stargazers\":{\"totalCount\":3}}},{\"node\":{\"name\":\"itis-lookup\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"SSOAP\",\"stargazers\":{\"totalCount\":1}}},{\"node\":{\"name\":\"gbifrb\",\"stargazers\":{\"totalCount\":2}}}]}}}}\n"
+#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"ropensci-tweets\",\"stargazers\":{\"totalCount\":3}}},{\"node\":{\"name\":\"annual-reporting\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"fauxpas\",\"stargazers\":{\"totalCount\":11}}},{\"node\":{\"name\":\"chimpr\",\"stargazers\":{\"totalCount\":13}}},{\"node\":{\"name\":\"cranchecksdocs\",\"stargazers\":{\"totalCount\":6}}}]}}}}\n"
 # parse to an R list
 jsonlite::fromJSON(x)
 #> $data
 #> $data$repositoryOwner
 #> $data$repositoryOwner$repositories
 #> $data$repositoryOwner$repositories$edges
-#>      node.name node.totalCount
-#> 1    Headstart             134
-#> 2 makeregistry               3
-#> 3  itis-lookup               0
-#> 4        SSOAP               1
-#> 5       gbifrb               2
+#>          node.name node.totalCount
+#> 1  ropensci-tweets               3
+#> 2 annual-reporting               0
+#> 3          fauxpas              11
+#> 4           chimpr              13
+#> 5   cranchecksdocs               6
 ```
 
 ## Parameterize a query by a variable
@@ -442,7 +442,7 @@ con$exec(xxx$queries$query)
 
 ## Meta
 
-* Please note that this project is released with a [Contributor Code of Conduct][coc]. By participating in this project you agree to abide by its terms.
+* Please note that this package is released with a [Contributor Code of Conduct](https://ropensci.org/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
 
 [gqlr]: https://github.com/schloerke/gqlr
 [graphql]: https://github.com/ropensci/graphql
