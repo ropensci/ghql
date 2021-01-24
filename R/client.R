@@ -220,7 +220,7 @@ GraphqlClient <- R6::R6Class(
     #' @param ... curl options passed on to [crul::verb-POST]
     #' @return character string of response, if successful
     exec = function(query, variables, encoding = "UTF-8", ...) {
-      parsed_query <- gsub("\n", "", private$handle_query(query))
+      parsed_query <- private$handle_query(query)
       body <- list(query = parsed_query)
       if (private$has_variables(body$query)) {
         if (missing(variables))
