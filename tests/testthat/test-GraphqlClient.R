@@ -62,6 +62,61 @@ test_that("GraphqlClient construction works", {
   expect_is(parsed$data$viewer$repositories$edges, "data.frame")
 })
 
+test_that("GraphqlClient construction works with comments inside the query and inside fragment", {
+  skip_on_cran()
+
+  token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
+  aa <- GraphqlClient$new(
+    url = "https://api.github.com/graphql",
+    headers = list(Authorization = paste0("Bearer ", token))
+  )
+
+  # ping method
+  expect_true(aa$ping())
+
+  frag <- Fragment$new()
+  frag$fragment('ownerInfo', '
+    fragment on RepositoryOwner {
+      # we can also comment inside a fragment
+      id
+      avatarUrl
+      resourcePath # that is nice
+      url
+  }')
+
+  qry <- Query$new()
+  qry$query('repos', '{
+    # let\'s get two repositories using our fragment
+    ghql: repository(owner: "ropensci", name: "ghql") {
+      name # the name of the repository
+      owner {
+        ...ownerInfo # fragment
+      }
+    }
+    jsonlite: repository(owner: "jeroen", name: "jsonlite") {
+      name
+      owner {
+      ...ownerInfo # fragment
+      }
+    }
+  }')
+  qry$add_fragment('repos', frag$fragments$ownerInfo)
+
+  
+  # execute method
+  out <- aa$exec(qry$queries$repos)
+  expect_is(out, "character")
+  expect_match(out, "ghql")
+  expect_match(out, "jsonlite")
+  expect_match(out, "avatarUrl")
+  
+  parsed <- jsonlite::fromJSON(out)
+  expect_is(parsed, "list")
+  expect_named(parsed, "data")
+  expect_is(parsed$data$ghql, "list")
+  expect_is(parsed$data$jsonlite, "list")
+})
+
 test_that("GraphqlClient class fails well", {
   expect_error(GraphqlClient$new(a = 5), "unused argument")
 
