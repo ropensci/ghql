@@ -10,3 +10,4 @@ man-roxygen
 ^.github$
 ^codemeta\.json$
 ^cran-comments\.md$
+^LICENSE\.md$
