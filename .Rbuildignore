@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^CODE_OF_CONDUCT\.md$
 README.Rmd
+README.md
 .travis.yml
 appveyor.yml
 cran-comments.md

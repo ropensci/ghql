@@ -7,7 +7,7 @@ ghql
 [![cran checks](https://cranchecks.info/badges/worst/ghql)](https://cranchecks.info/pkgs/ghql)
 [![R-check](https://github.com/ropensci/ghql/workflows/R-check/badge.svg)](https://github.com/ropensci/ghql/actions?query=workflow%3AR-check)
 [![codecov.io](https://codecov.io/github/ropensci/ghql/coverage.svg?branch=master)](https://codecov.io/github/ropensci/ghql?branch=master)
-[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/ghql)](https://github.com/metacran/cranlogs.app)
+[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/ghql)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/ghql)](https://cran.r-project.org/package=ghql)
 
 `ghql` - a GraphQL client for R
@@ -16,9 +16,9 @@ GraphQL - <https://graphql.org>
 
 Examples of GraphQL APIs:
 
-* GitHub: https://docs.github.com/en/graphql/guides/introduction-to-graphql
-* Opentargets: https://genetics-docs.opentargets.org/technical-pipeline/graphql-api
-* Countries GraphQL API: https://github.com/trevorblades/countries
+* GitHub: <https://docs.github.com/en/graphql/guides/introduction-to-graphql>
+* Opentargets: <https://genetics-docs.opentargets.org/technical-pipeline/graphql-api>
+* Countries GraphQL API: <https://github.com/trevorblades/countries>
 
 Other GraphQL R packages:
 
@@ -31,7 +31,7 @@ Note: To be clear, this R package isn't just for the GitHub GraphQL API, but it
 is the most public GraphQL API we can think of, so is used in examples
 throughout here.
 
-See https://docs.github.com/en/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql for getting an OAuth token.
+See <https://docs.github.com/en/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql> for getting an OAuth token.
 
 Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
 
@@ -137,19 +137,19 @@ qry$queries$mydata
 ```r
 # returns json
 (x <- con$exec(qry$queries$mydata))
-#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"ropensci-tweets\",\"stargazers\":{\"totalCount\":3}}},{\"node\":{\"name\":\"annual-reporting\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"fauxpas\",\"stargazers\":{\"totalCount\":11}}},{\"node\":{\"name\":\"chimpr\",\"stargazers\":{\"totalCount\":13}}},{\"node\":{\"name\":\"cranchecksdocs\",\"stargazers\":{\"totalCount\":6}}}]}}}}\n"
+#> [1] "{\"data\":{\"repositoryOwner\":{\"repositories\":{\"edges\":[{\"node\":{\"name\":\"cranchecksdocs\",\"stargazers\":{\"totalCount\":6}}},{\"node\":{\"name\":\"badges\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"mutant-proposal\",\"stargazers\":{\"totalCount\":0}}},{\"node\":{\"name\":\"extcite\",\"stargazers\":{\"totalCount\":6}}},{\"node\":{\"name\":\"Headstart\",\"stargazers\":{\"totalCount\":140}}}]}}}}\n"
 # parse to an R list
 jsonlite::fromJSON(x)
 #> $data
 #> $data$repositoryOwner
 #> $data$repositoryOwner$repositories
 #> $data$repositoryOwner$repositories$edges
-#>          node.name node.totalCount
-#> 1  ropensci-tweets               3
-#> 2 annual-reporting               0
-#> 3          fauxpas              11
-#> 4           chimpr              13
-#> 5   cranchecksdocs               6
+#>         node.name node.totalCount
+#> 1  cranchecksdocs               6
+#> 2          badges               0
+#> 3 mutant-proposal               0
+#> 4         extcite               6
+#> 5       Headstart             140
 ```
 
 ## Parameterize a query by a variable
@@ -247,34 +247,27 @@ qry$query('dc', '{
 }')
 res <- con$exec(qry$queries$dc)
 head(jsonlite::fromJSON(res)$data$publications$nodes)
-#>                                     id
-#> 1 https://doi.org/10.4122/1.1000000046
-#> 2 https://doi.org/10.4122/1.1000000047
-#> 3 https://doi.org/10.4122/1.1000000048
-#> 4 https://doi.org/10.4122/1.1000000054
-#> 5 https://doi.org/10.4122/1.1000000055
-#> 6 https://doi.org/10.4122/1.1000000056
-#>                                                     titles
-#> 1                    Single Cell Protein from Landfill Gas
-#> 2                    Single Cell Protein from Landfill Gas
-#> 3                    Single Cell Protein from Landfill Gas
-#> 4                        Reengineering of Tietgenkollegiet
-#> 5                        Reengineering of Tietgenkollegiet
-#> 6 Reengineering of Tietgen Kollegiet into a green building
+#>                                     id                                titles
+#> 1 https://doi.org/10.4122/1.1000000046 Single Cell Protein from Landfill Gas
+#> 2 https://doi.org/10.4122/1.1000000046 Single Cell Protein from Landfill Gas
+#> 3 https://doi.org/10.4122/1.1000000047 Single Cell Protein from Landfill Gas
+#> 4 https://doi.org/10.4122/1.1000000047 Single Cell Protein from Landfill Gas
+#> 5 https://doi.org/10.4122/1.1000000048 Single Cell Protein from Landfill Gas
+#> 6 https://doi.org/10.4122/1.1000000048 Single Cell Protein from Landfill Gas
 #>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       descriptions
 #> 1 Municipal solid waste (MSW) landfills are one of the largest human-generated sources of methane emissions in the United States and other countries globally. Methane is believed to be a very potent greenhouse gas that is a key contributor to global climate change, over 21 times stronger than CO2. Methane also has a short (10-year) atmospheric life. Because methane is both potent and short-lived, reducing methane emissions from MSW landfills is one of the best ways to achieve a near-term beneficial impact in mitigating global climate change. The United States Environmental Protection Agency estimates that a landfill gas (LFG) project will capture roughly 60-90% of the methane emitted from the landfill, depending on system design and effectiveness. The captured methane can be then purified and used for industrial applications, as in this case the production of SCP. Utilizing methane in this way decreases its demand from fossil fuels which is its traditional source.
 #> 2 Municipal solid waste (MSW) landfills are one of the largest human-generated sources of methane emissions in the United States and other countries globally. Methane is believed to be a very potent greenhouse gas that is a key contributor to global climate change, over 21 times stronger than CO2. Methane also has a short (10-year) atmospheric life. Because methane is both potent and short-lived, reducing methane emissions from MSW landfills is one of the best ways to achieve a near-term beneficial impact in mitigating global climate change. The United States Environmental Protection Agency estimates that a landfill gas (LFG) project will capture roughly 60-90% of the methane emitted from the landfill, depending on system design and effectiveness. The captured methane can be then purified and used for industrial applications, as in this case the production of SCP. Utilizing methane in this way decreases its demand from fossil fuels which is its traditional source.
 #> 3 Municipal solid waste (MSW) landfills are one of the largest human-generated sources of methane emissions in the United States and other countries globally. Methane is believed to be a very potent greenhouse gas that is a key contributor to global climate change, over 21 times stronger than CO2. Methane also has a short (10-year) atmospheric life. Because methane is both potent and short-lived, reducing methane emissions from MSW landfills is one of the best ways to achieve a near-term beneficial impact in mitigating global climate change. The United States Environmental Protection Agency estimates that a landfill gas (LFG) project will capture roughly 60-90% of the methane emitted from the landfill, depending on system design and effectiveness. The captured methane can be then purified and used for industrial applications, as in this case the production of SCP. Utilizing methane in this way decreases its demand from fossil fuels which is its traditional source.
-#> 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Integrated functional design project containing reengineering of Tietgenkollegiet. The purpose is to meet the requirements of low energy class 1, and a satisfying inddor air climate and level of daylight.
-#> 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Integrated functional design project containing reengineering of Tietgenkollegiet. The purpose is to meet the requirements of low energy class 1, and a satisfying inddor air climate and level of daylight.
-#> 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Reengineering of Tietgen Kollegiet into a green building in terms of energy consumption and indoor climate.
-#>                                                                                                                                            creators
-#> 1                                                                                 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
-#> 2                                                                                 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
-#> 3                                                                                 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
-#> 4                           Chaachouh, Hassan Valid, Pedersen, Stine Holst, Alilou, Zahra, Hvid, Christian Anker, Chaachouh, Pedersen, Alilou, Hvid
-#> 5                           Chaachouh, Hassan Valid, Pedersen, Stine Holst, Alilou, Zahra, Hvid, Christian Anker, Chaachouh, Pedersen, Alilou, Hvid
-#> 6 Løvborg, Daniel, Holck, Jakob Trier, Sørensen, Jannie Bakkær, Birkemose, Stig, Hviid, Christian Anker, Løvborg, Holck, Sørensen, Birkemose, Hviid
+#> 4 Municipal solid waste (MSW) landfills are one of the largest human-generated sources of methane emissions in the United States and other countries globally. Methane is believed to be a very potent greenhouse gas that is a key contributor to global climate change, over 21 times stronger than CO2. Methane also has a short (10-year) atmospheric life. Because methane is both potent and short-lived, reducing methane emissions from MSW landfills is one of the best ways to achieve a near-term beneficial impact in mitigating global climate change. The United States Environmental Protection Agency estimates that a landfill gas (LFG) project will capture roughly 60-90% of the methane emitted from the landfill, depending on system design and effectiveness. The captured methane can be then purified and used for industrial applications, as in this case the production of SCP. Utilizing methane in this way decreases its demand from fossil fuels which is its traditional source.
+#> 5 Municipal solid waste (MSW) landfills are one of the largest human-generated sources of methane emissions in the United States and other countries globally. Methane is believed to be a very potent greenhouse gas that is a key contributor to global climate change, over 21 times stronger than CO2. Methane also has a short (10-year) atmospheric life. Because methane is both potent and short-lived, reducing methane emissions from MSW landfills is one of the best ways to achieve a near-term beneficial impact in mitigating global climate change. The United States Environmental Protection Agency estimates that a landfill gas (LFG) project will capture roughly 60-90% of the methane emitted from the landfill, depending on system design and effectiveness. The captured methane can be then purified and used for industrial applications, as in this case the production of SCP. Utilizing methane in this way decreases its demand from fossil fuels which is its traditional source.
+#> 6 Municipal solid waste (MSW) landfills are one of the largest human-generated sources of methane emissions in the United States and other countries globally. Methane is believed to be a very potent greenhouse gas that is a key contributor to global climate change, over 21 times stronger than CO2. Methane also has a short (10-year) atmospheric life. Because methane is both potent and short-lived, reducing methane emissions from MSW landfills is one of the best ways to achieve a near-term beneficial impact in mitigating global climate change. The United States Environmental Protection Agency estimates that a landfill gas (LFG) project will capture roughly 60-90% of the methane emitted from the landfill, depending on system design and effectiveness. The captured methane can be then purified and used for industrial applications, as in this case the production of SCP. Utilizing methane in this way decreases its demand from fossil fuels which is its traditional source.
+#>                                                            creators
+#> 1 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
+#> 2 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
+#> 3 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
+#> 4 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
+#> 5 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
+#> 6 Babi, Deenesh, Price, Jason, Woodley, Prof. John, Babi, Price, NA
 #>   fundingReferences
 #> 1              NULL
 #> 2              NULL
@@ -447,4 +440,3 @@ con$exec(xxx$queries$query)
 [gqlr]: https://github.com/schloerke/gqlr
 [graphql]: https://github.com/ropensci/graphql
 [libgraphqlparser]: https://github.com/graphql/libgraphqlparser
-[coc]: https://github.com/ropensci/ghql/blob/master/CODE_OF_CONDUCT.md

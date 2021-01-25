@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 [![cran checks](https://cranchecks.info/badges/worst/ghql)](https://cranchecks.info/pkgs/ghql)
 [![R-check](https://github.com/ropensci/ghql/workflows/R-check/badge.svg)](https://github.com/ropensci/ghql/actions?query=workflow%3AR-check)
 [![codecov.io](https://codecov.io/github/ropensci/ghql/coverage.svg?branch=master)](https://codecov.io/github/ropensci/ghql?branch=master)
-[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/ghql)](https://github.com/metacran/cranlogs.app)
+[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/ghql)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/ghql)](https://cran.r-project.org/package=ghql)
 
 `ghql` - a GraphQL client for R
@@ -23,9 +23,9 @@ GraphQL - <https://graphql.org>
 
 Examples of GraphQL APIs:
 
-* GitHub: https://docs.github.com/en/graphql/guides/introduction-to-graphql
-* Opentargets: https://genetics-docs.opentargets.org/technical-pipeline/graphql-api
-* Countries GraphQL API: https://github.com/trevorblades/countries
+* GitHub: <https://docs.github.com/en/graphql/guides/introduction-to-graphql>
+* Opentargets: <https://genetics-docs.opentargets.org/technical-pipeline/graphql-api>
+* Countries GraphQL API: <https://github.com/trevorblades/countries>
 
 Other GraphQL R packages:
 
@@ -38,7 +38,7 @@ Note: To be clear, this R package isn't just for the GitHub GraphQL API, but it
 is the most public GraphQL API we can think of, so is used in examples
 throughout here.
 
-See https://docs.github.com/en/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql for getting an OAuth token.
+See <https://docs.github.com/en/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql> for getting an OAuth token.
 
 Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
 
@@ -306,4 +306,3 @@ con$exec(xxx$queries$query)
 [gqlr]: https://github.com/schloerke/gqlr
 [graphql]: https://github.com/ropensci/graphql
 [libgraphqlparser]: https://github.com/graphql/libgraphqlparser
-[coc]: https://github.com/ropensci/ghql/blob/master/CODE_OF_CONDUCT.md
