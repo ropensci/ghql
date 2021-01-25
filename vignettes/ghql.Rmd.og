@@ -1,0 +1,288 @@
+---
+title: Introduction to ghql
+author: Scott Chamberlain
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+    %\VignetteIndexEntry{introduction}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+`ghql` - a GraphQL client for R
+
+## GitHub Authentication
+
+Note: To be clear, this R package isn't just for the GitHub GraphQL API, but it
+is the most public GraphQL API we can think of, so is used in examples
+throughout here.
+
+See <https://docs.github.com/en/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql> for getting an OAuth token.
+
+Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
+
+## Install
+
+CRAN version
+
+```{r eval=FALSE}
+install.packages("ghql")
+```
+
+Development version
+
+```{r eval=FALSE}
+remotes::install_github("ropensci/ghql")
+```
+
+```{r}
+library("ghql")
+library("jsonlite")
+library("dplyr")
+```
+
+## initialize client
+
+```{r}
+token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
+con <- GraphqlClient$new(
+  url = "https://api.github.com/graphql",
+  headers = list(Authorization = paste0("Bearer ", token))
+)
+```
+
+## load schema
+
+Since not every GraphQL server has a schema at the base URL, have to manually
+load the schema in this case
+
+```{r}
+con$load_schema()
+```
+
+
+## Queries
+
+Make a `Query` class object
+
+```{r}
+qry <- Query$new()
+```
+
+When you construct queries we check that they are properly formatted using the 
+[graphql][] package that leverages the [libgraphqlparser][] C++ parser. If the query
+is malformed, we return a message as to why the query is malformed.
+
+Get some stargazer counts
+
+```{r}
+qry$query('mydata', '{
+  repositoryOwner(login:"sckott") {
+    repositories(first: 5, orderBy: {field:PUSHED_AT,direction:DESC}, isFork:false) {
+      edges {
+        node {
+          name
+          stargazers {
+            totalCount
+          }
+        }
+      }
+    }
+  }
+}')
+qry
+qry$queries$mydata
+```
+
+```{r}
+# returns json
+(x <- con$exec(qry$queries$mydata))
+# parse to an R list
+jsonlite::fromJSON(x)
+```
+
+## Parameterize a query by a variable
+
+Define a query
+
+```{r}
+qry <- Query$new()
+qry$query('getgeninfo', 'query getGeneInfo($genId: String!){
+  geneInfo(geneId: $genId) {
+    id
+    symbol
+    chromosome
+    start
+    end
+    bioType
+    __typename
+  }
+}')
+```
+
+Define a variable as a named list
+
+```{r}
+variables <- list(genId = 'ENSG00000137033')
+```
+
+Creat a clint and make a request, passing in the query and then the variables
+
+```{r}
+con <- GraphqlClient$new('https://genetics-api.opentargets.io/graphql')
+res <- con$exec(qry$queries$getgeninfo, variables)
+jsonlite::fromJSON(res)
+```
+
+## Example: Datacite
+
+[Datacite](https://datacite.org/) provides DOIs for research data. Check out the 
+[Datacite GraphQL docs](https://support.datacite.org/docs/datacite-graphql-api-guide)
+to get started. A minimal example:
+
+```{r}
+con <- GraphqlClient$new("https://api.datacite.org/graphql")
+qry <- Query$new()
+qry$query('dc', '{
+  publications(query: "climate") {
+    totalCount
+
+    nodes {
+      id
+      titles {
+        title
+      }
+      descriptions {
+        description
+      }
+      creators {
+        name
+        familyName
+      }
+      fundingReferences {
+        funderIdentifier
+        funderName
+        awardTitle
+        awardNumber
+      }
+    }
+  }
+}')
+res <- con$exec(qry$queries$dc)
+head(jsonlite::fromJSON(res)$data$publications$nodes)
+```
+
+## Example: Countries Data
+A public GraphQL API for information about countries, continents, and languages. This project uses Countries List and provinces as data sources, so the schema follows the shape of that data, with a few exceptions:
+
+Link to the GraphQL schema api
+```{r}
+link <- 'https://countries.trevorblades.com/'
+```
+
+Create a new graphqlClient object 
+```{r}
+con <- GraphqlClient$new(url = link)
+```
+
+Define a Graphql Query
+```{r}
+query <- '
+query($code: ID!){
+  country(code: $code){
+    name
+    native
+    capital
+    currency
+    phone
+    languages{
+      code
+      name
+    }
+  }
+}'
+```
+
+The `ghql` query class and define query in a character string
+```{r}
+new <- Query$new()$query('link', query)
+```
+
+Inspecting the schema
+```{r}
+new$link
+```
+
+define a variable as a named list
+```{r}
+variable <- list(
+  code = "DE"
+)
+```
+
+Making a request, passing in the query and then the variables. Then you convert the raw object to a structured json object
+```{r}
+result <- con$exec(new$link, variables = variable) %>% 
+  fromJSON(flatten = FALSE)
+result
+```
+
+Convert the json data into a tibble object
+```{r}
+country_data <- result$data$country %>% 
+  as_tibble()
+country_data
+```
+
+## run a local GraphQL server
+
+* Copy the `server.js` file from this package located at `inst/server.js` somewhere on your machine. Can locate it on your machine like `system.file("js/server.js", package = "ghql")`. Or you can run the file from where it's at, up to you.
+* Make sure node is installed. If not, see <https://nodejs.org>
+* Run `node server.js`
+* Navigate to your browser - go to http://localhost:4000/graphql
+* Back in R, user that URL to connect
+
+```{r eval=FALSE}
+(con <- GraphqlClient$new("http://localhost:4000/graphql"))
+#> <ghql client>
+#>   url: http://localhost:4000/graphql
+```
+
+```{r eval=FALSE}
+xxx <- Query$new()
+xxx$query('query', '{
+  __schema {
+    queryType {
+      name, 
+      fields {
+        name,
+        description
+      }
+    }
+  }
+}')
+```
+
+
+```{r eval=FALSE}
+con$exec(xxx$queries$query)
+#> $data
+#> $data$`__schema`
+#> $data$`__schema`$queryType
+#> $data$`__schema`$queryType$name
+#> [1] "Query"
+#> 
+#> $data$`__schema`$queryType$fields
+#>    name description
+#> 1 hello            
+#> 2  name 
+```

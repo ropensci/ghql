@@ -12,3 +12,4 @@ man-roxygen
 ^codemeta\.json$
 ^cran-comments\.md$
 ^LICENSE\.md$
+vignettes/
