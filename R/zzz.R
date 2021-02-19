@@ -5,7 +5,7 @@ ct <- function(x) Filter(Negate(is.null), x)
 gh_POST <- function(url, body, headers, ...){
   con <- crul::HttpClient$new(url, headers = headers, opts = list(...))
   res <- con$post(body = body, encode = "json")
-  res$raise_for_status()
+  err(res)
   res
 }
 
@@ -21,6 +21,14 @@ gh_HEAD <- function(url, headers, ...){
   res <- con$head()
   res$raise_for_status()
   res
+}
+
+err <- function(x) {
+  if (x$status_code >= 400) {
+    mssg <- x$parse("UTF-8")
+    if (!nzchar(mssg)) mssg <- x$status_http()$message
+    stop(sprintf("[HTTP %s]", x$status_code), " ", mssg, call. = FALSE)
+  }
 }
 
 cont <- function(x, encoding = "UTF-8") x$parse(encoding = encoding)
