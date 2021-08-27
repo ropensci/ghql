@@ -5,7 +5,7 @@ Description: A 'GraphQL' client, with an R6 interface for initializing
     a connection to a 'GraphQL' instance, and methods for constructing
     queries, including fragments and parameterized queries. Queries
     are checked with the 'libgraphqlparser' C++ parser via the
-    'gaphql' package.
+    'graphql' package.
 Version: 0.1.1.93
 Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com",
