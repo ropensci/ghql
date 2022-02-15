@@ -224,7 +224,7 @@ GraphqlClient <- R6::R6Class(
       body <- list(query = parsed_query)
       if (private$has_variables(body$query)) {
         if (missing(variables))
-          stop(sprintf("query has variables and not one passsed"), call. = FALSE)
+          stop(sprintf("query has variables and not one passed"), call. = FALSE)
         else
           private$verify_variables(body$query, variables)
           body$variables = variables  
@@ -247,7 +247,7 @@ GraphqlClient <- R6::R6Class(
 
   private = list(
     # @field .var_regex variable regexp 
-    .var_regex = '\\$([[:alnum:]]+)',
+    .var_regex = '\\$([_A-Za-z][_0-9A-Za-z]*)',
 
     # @description rewrite query if there is fragments, leave equal otherwise
     # @param x (character) a query, of class `query` or `fragment`
