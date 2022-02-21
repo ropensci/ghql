@@ -227,7 +227,7 @@ GraphqlClient <- R6::R6Class(
           stop(sprintf("query has variables and not one passed"), call. = FALSE)
         else
           private$verify_variables(body$query, variables)
-          body$variables = variables  
+          body$variables = ct(variables)
       }
       cont(
         gh_POST(
@@ -288,8 +288,8 @@ GraphqlClient <- R6::R6Class(
         )
       )
       for (v in vars) {
-        if (is.null(variables[[v]]))
-          stop(sprintf("variable `%s` is null or not found in variables", v), call. = FALSE)
+        if (!v %in% names(variables))
+          stop(sprintf("variable `%s` is not found in variables", v), call. = FALSE)
       }
     }
   )
