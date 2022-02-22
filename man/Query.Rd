@@ -73,7 +73,7 @@ qry$queries$querywithfrag
 
 
 \dontrun{
-token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
+token <- Sys.getenv("GITHUB_TOKEN")
 con <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
   headers = list(Authorization = paste0("Bearer ", token))

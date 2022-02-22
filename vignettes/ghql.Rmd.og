@@ -28,7 +28,7 @@ throughout here.
 
 See <https://docs.github.com/en/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql> for getting an OAuth token.
 
-Store the token in a env var called `GITHUB_GRAPHQL_TOKEN`
+Store the token in a env var called `GITHUB_TOKEN`
 
 ## Install
 
@@ -53,7 +53,7 @@ library("dplyr")
 ## initialize client
 
 ```{r}
-token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
+token <- Sys.getenv("GITHUB_TOKEN")
 con <- GraphqlClient$new(
   url = "https://api.github.com/graphql",
   headers = list(Authorization = paste0("Bearer ", token))

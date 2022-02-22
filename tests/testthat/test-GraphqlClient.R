@@ -25,7 +25,7 @@ test_that("GraphqlClient client initialization works", {
 test_that("GraphqlClient construction works", {
   skip_on_cran()
 
-  token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
+  token <- Sys.getenv("GITHUB_TOKEN")
   aa <- GraphqlClient$new(
     url = "https://api.github.com/graphql",
     headers = list(Authorization = paste0("Bearer ", token))
@@ -65,7 +65,7 @@ test_that("GraphqlClient construction works", {
 test_that("GraphqlClient construction works with comments inside the query and inside fragment", {
   skip_on_cran()
 
-  token <- Sys.getenv("GITHUB_GRAPHQL_TOKEN")
+  token <- Sys.getenv("GITHUB_TOKEN")
   aa <- GraphqlClient$new(
     url = "https://api.github.com/graphql",
     headers = list(Authorization = paste0("Bearer ", token))
