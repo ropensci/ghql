@@ -55,6 +55,14 @@ test_that("GraphqlClient construction works", {
   expect_is(out, "character")
   expect_match(out, "repositories")
   expect_match(out, "isPrivate")
+
+  # response_headers (#32)
+  out_with_hdrs <- aa$exec(qry$queries$repos, response_headers = TRUE)
+  expect_null(attributes(out))
+  expect_named(attributes(out_with_hdrs))
+  expect_identical(names(attributes(out_with_hdrs)), "response_headers")
+  hdrs <- attr(out_with_hdrs, "response_headers")
+  expect_type(hdrs, "list")
   
   parsed <- jsonlite::fromJSON(out)
   expect_is(parsed, "list")
