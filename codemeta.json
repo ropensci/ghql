@@ -11,7 +11,7 @@
   "relatedLink": "https://docs.ropensci.org/ghql",
   "issueTracker": "https://github.com/ropensci/ghql/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.0",
+  "version": "0.1.1.095",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -106,9 +106,25 @@
   ],
   "applicationCategory": "Web",
   "isPartOf": "https://ropensci.org",
-  "keywords": ["http", "API", "web-services", "curl", "data", "GraphQL", "graphql", "graphql-client", "rstats", "r", "graphql-api", "r-package"],
+  "keywords": [
+    "http",
+    "API",
+    "web-services",
+    "curl",
+    "data",
+    "GraphQL",
+    "graphql",
+    "graphql-client",
+    "rstats",
+    "r",
+    "graphql-api",
+    "r-package"
+  ],
   "readme": "https://github.com/ropensci/ghql/blob/master/README.md",
   "fileSize": "12.665KB",
-  "contIntegration": ["https://travis-ci.org/ropensci/ghql", "https://codecov.io/github/ropensci/ghql?branch=master"],
+  "contIntegration": [
+    "https://travis-ci.org/ropensci/ghql",
+    "https://codecov.io/github/ropensci/ghql?branch=master"
+  ],
   "releaseNotes": "https://github.com/ropensci/ghql/blob/master/NEWS.md"
 }

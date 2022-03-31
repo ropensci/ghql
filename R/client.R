@@ -217,9 +217,12 @@ GraphqlClient <- R6::R6Class(
     #' @param variables (list) named list with query variables values
     #' @param encoding (character) encoding to use to parse the response. passed
     #' on to [crul::HttpResponse] `$parse()` method. default: "UTF-8"
+    #' @param response_headers If `TRUE`, include the response headers as an
+    #' attribute of the return object.
     #' @param ... curl options passed on to [crul::verb-POST]
     #' @return character string of response, if successful
-    exec = function(query, variables, encoding = "UTF-8", ...) {
+    exec = function(query, variables, encoding = "UTF-8",
+                    response_headers = FALSE, ...) {
       parsed_query <- private$handle_query(query)
       body <- list(query = parsed_query)
       if (private$has_variables(body$query)) {
@@ -229,13 +232,18 @@ GraphqlClient <- R6::R6Class(
           private$verify_variables(body$query, variables)
           body$variables = ct(variables)
       }
-      cont(
-        gh_POST(
-          self$url,
-          body,
-          self$headers, ...),
+      res <- gh_POST(
+        self$url,
+        body,
+        self$headers, ...)
+      hdrs <- res$response_headers
+      out <- cont(
+        res,
         encoding = encoding
       )
+      if (response_headers)
+        attr(out, "response_headers") <- res$response_headers
+      return(out)
     },
 
     #' @description not used right now

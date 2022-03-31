@@ -312,7 +312,13 @@ nothing returned; sets fragments internally
 \subsection{Method \code{exec()}}{
 execute the query
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$exec(query, variables, encoding = "UTF-8", ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$exec(
+  query,
+  variables,
+  encoding = "UTF-8",
+  response_headers = FALSE,
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -324,6 +330,9 @@ execute the query
 
 \item{\code{encoding}}{(character) encoding to use to parse the response. passed
 on to [crul::HttpResponse] `$parse()` method. default: "UTF-8"}
+
+\item{\code{response_headers}}{If `TRUE`, include the response headers as an
+attribute of the return object.}
 
 \item{\code{...}}{curl options passed on to [crul::verb-POST]}
 }
