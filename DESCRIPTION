@@ -1,10 +1,13 @@
 Type: Package
 Package: ghql
 Title: General Purpose 'GraphQL' Client
-Version: 0.1.1.097
-Authors@R: 
+Version: 0.1.1.098
+Authors@R: c(
     person("Scott", "Chamberlain", , "myrmecocystus@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-1444-9135"))
+           comment = c(ORCID = "0000-0003-1444-9135")),
+    person("Mark", "Padgham", , "mark.padgham@email.com", role = "aut",
+           comment = c(ORCID = "0000-0003-2172-5265"))
+  )
 Description: A 'GraphQL' client, with an R6 interface for initializing a
     connection to a 'GraphQL' instance, and methods for constructing
     queries, including fragments and parameterized queries. Queries are
