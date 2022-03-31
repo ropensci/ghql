@@ -1,29 +1,29 @@
-Package: ghql
 Type: Package
+Package: ghql
 Title: General Purpose 'GraphQL' Client
-Description: A 'GraphQL' client, with an R6 interface for initializing
-    a connection to a 'GraphQL' instance, and methods for constructing
-    queries, including fragments and parameterized queries. Queries
-    are checked with the 'libgraphqlparser' C++ parser via the
-    'graphql' package.
-Version: 0.1.1.096
-Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
-    email = "myrmecocystus@gmail.com",
-    comment = c(ORCID="0000-0003-1444-9135")))
+Version: 0.1.1.097
+Authors@R: 
+    person("Scott", "Chamberlain", , "myrmecocystus@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-1444-9135"))
+Description: A 'GraphQL' client, with an R6 interface for initializing a
+    connection to a 'GraphQL' instance, and methods for constructing
+    queries, including fragments and parameterized queries. Queries are
+    checked with the 'libgraphqlparser' C++ parser via the 'graphql'
+    package.
 License: MIT + file LICENSE
 URL: https://github.com/ropensci/ghql (devel)
     https://docs.ropensci.org/ghql/ (docs)
 BugReports: https://github.com/ropensci/ghql/issues
-Encoding: UTF-8
-Language: en-US
 Imports:
     crul,
+    graphql,
     jsonlite,
-    R6,
-    graphql
+    R6
 Suggests:
     testthat
+Encoding: UTF-8
+Language: en-US
 RoxygenNote: 7.1.2
 X-schema.org-applicationCategory: Web
-X-schema.org-keywords: http, API, web-services, curl, data, GraphQL
 X-schema.org-isPartOf: https://ropensci.org
+X-schema.org-keywords: http, API, web-services, curl, data, GraphQL
