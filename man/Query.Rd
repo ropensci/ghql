@@ -135,15 +135,15 @@ qry$queries$queryfrag
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-print}{\code{Query$print()}}
-\item \href{#method-query}{\code{Query$query()}}
-\item \href{#method-add_fragment}{\code{Query$add_fragment()}}
-\item \href{#method-parse2json}{\code{Query$parse2json()}}
+\item \href{#method-Query-print}{\code{Query$print()}}
+\item \href{#method-Query-query}{\code{Query$query()}}
+\item \href{#method-Query-add_fragment}{\code{Query$add_fragment()}}
+\item \href{#method-Query-parse2json}{\code{Query$parse2json()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-Query-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Query-print}{}}}
 \subsection{Method \code{print()}}{
 print method for the `Query` class
 \subsection{Usage}{
@@ -161,8 +161,8 @@ print method for the `Query` class
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-query"></a>}}
-\if{latex}{\out{\hypertarget{method-query}{}}}
+\if{html}{\out{<a id="method-Query-query"></a>}}
+\if{latex}{\out{\hypertarget{method-Query-query}{}}}
 \subsection{Method \code{query()}}{
 define query in a character string
 \subsection{Usage}{
@@ -183,8 +183,8 @@ nothing returned; sets query with `name` internally
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-add_fragment"></a>}}
-\if{latex}{\out{\hypertarget{method-add_fragment}{}}}
+\if{html}{\out{<a id="method-Query-add_fragment"></a>}}
+\if{latex}{\out{\hypertarget{method-Query-add_fragment}{}}}
 \subsection{Method \code{add_fragment()}}{
 add a fragment to a query
 \subsection{Usage}{
@@ -205,8 +205,8 @@ nothing returned; sets the fragment with the query
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-parse2json"></a>}}
-\if{latex}{\out{\hypertarget{method-parse2json}{}}}
+\if{html}{\out{<a id="method-Query-parse2json"></a>}}
+\if{latex}{\out{\hypertarget{method-Query-parse2json}{}}}
 \subsection{Method \code{parse2json()}}{
 parse query string with libgraphqlparser and get back JSON
 \subsection{Usage}{

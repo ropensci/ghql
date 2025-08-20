@@ -23,6 +23,14 @@ which works together with [GraphqlClient]
 which works together with [GraphqlClient]
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ropensci/ghql (devel) https://docs.ropensci.org/ghql/ (docs)}
+  \item Report bugs at \url{https://github.com/ropensci/ghql/issues}
+}
+
+}
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 }

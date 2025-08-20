@@ -51,13 +51,13 @@ frag$fragments$Stargazers
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-print}{\code{Fragment$print()}}
-\item \href{#method-fragment}{\code{Fragment$fragment()}}
+\item \href{#method-Fragment-print}{\code{Fragment$print()}}
+\item \href{#method-Fragment-fragment}{\code{Fragment$fragment()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-Fragment-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Fragment-print}{}}}
 \subsection{Method \code{print()}}{
 print method for the `Fragment` class
 \subsection{Usage}{
@@ -75,8 +75,8 @@ print method for the `Fragment` class
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fragment"></a>}}
-\if{latex}{\out{\hypertarget{method-fragment}{}}}
+\if{html}{\out{<a id="method-Fragment-fragment"></a>}}
+\if{latex}{\out{\hypertarget{method-Fragment-fragment}{}}}
 \subsection{Method \code{fragment()}}{
 create a fragment by name
 \subsection{Usage}{

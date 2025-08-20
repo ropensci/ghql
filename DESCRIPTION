@@ -26,7 +26,7 @@ Suggests:
     testthat
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
 X-schema.org-applicationCategory: Web
 X-schema.org-isPartOf: https://ropensci.org
 X-schema.org-keywords: http, API, web-services, curl, data, GraphQL

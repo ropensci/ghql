@@ -148,20 +148,20 @@ cli$exec(qry$queries$queryfrag)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{GraphqlClient$new()}}
-\item \href{#method-print}{\code{GraphqlClient$print()}}
-\item \href{#method-ping}{\code{GraphqlClient$ping()}}
-\item \href{#method-load_schema}{\code{GraphqlClient$load_schema()}}
-\item \href{#method-dump_schema}{\code{GraphqlClient$dump_schema()}}
-\item \href{#method-schema2json}{\code{GraphqlClient$schema2json()}}
-\item \href{#method-fragment}{\code{GraphqlClient$fragment()}}
-\item \href{#method-exec}{\code{GraphqlClient$exec()}}
-\item \href{#method-prep_query}{\code{GraphqlClient$prep_query()}}
+\item \href{#method-GraphqlClient-new}{\code{GraphqlClient$new()}}
+\item \href{#method-GraphqlClient-print}{\code{GraphqlClient$print()}}
+\item \href{#method-GraphqlClient-ping}{\code{GraphqlClient$ping()}}
+\item \href{#method-GraphqlClient-load_schema}{\code{GraphqlClient$load_schema()}}
+\item \href{#method-GraphqlClient-dump_schema}{\code{GraphqlClient$dump_schema()}}
+\item \href{#method-GraphqlClient-schema2json}{\code{GraphqlClient$schema2json()}}
+\item \href{#method-GraphqlClient-fragment}{\code{GraphqlClient$fragment()}}
+\item \href{#method-GraphqlClient-exec}{\code{GraphqlClient$exec()}}
+\item \href{#method-GraphqlClient-prep_query}{\code{GraphqlClient$prep_query()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-GraphqlClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new `GraphqlClient` object
 \subsection{Usage}{
@@ -182,8 +182,8 @@ A new `GraphqlClient` object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-GraphqlClient-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-print}{}}}
 \subsection{Method \code{print()}}{
 print method for the `GraphqlClient` class
 \subsection{Usage}{
@@ -201,8 +201,8 @@ print method for the `GraphqlClient` class
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ping"></a>}}
-\if{latex}{\out{\hypertarget{method-ping}{}}}
+\if{html}{\out{<a id="method-GraphqlClient-ping"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-ping}{}}}
 \subsection{Method \code{ping()}}{
 ping the GraphQL server
 \subsection{Usage}{
@@ -221,8 +221,8 @@ ping the GraphQL server
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-load_schema"></a>}}
-\if{latex}{\out{\hypertarget{method-load_schema}{}}}
+\if{html}{\out{<a id="method-GraphqlClient-load_schema"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-load_schema}{}}}
 \subsection{Method \code{load_schema()}}{
 load schema, from URL or local file
 \subsection{Usage}{
@@ -245,8 +245,8 @@ nothing, loads schema into `$schema` slot
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-dump_schema"></a>}}
-\if{latex}{\out{\hypertarget{method-dump_schema}{}}}
+\if{html}{\out{<a id="method-GraphqlClient-dump_schema"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-dump_schema}{}}}
 \subsection{Method \code{dump_schema()}}{
 dump schema to a local file
 \subsection{Usage}{
@@ -265,8 +265,8 @@ nothing, writes schema to `file`
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-schema2json"></a>}}
-\if{latex}{\out{\hypertarget{method-schema2json}{}}}
+\if{html}{\out{<a id="method-GraphqlClient-schema2json"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-schema2json}{}}}
 \subsection{Method \code{schema2json()}}{
 convert schema to JSON
 \subsection{Usage}{
@@ -285,8 +285,8 @@ json
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fragment"></a>}}
-\if{latex}{\out{\hypertarget{method-fragment}{}}}
+\if{html}{\out{<a id="method-GraphqlClient-fragment"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-fragment}{}}}
 \subsection{Method \code{fragment()}}{
 load schema, from URL or local file
 \subsection{Usage}{
@@ -307,8 +307,8 @@ nothing returned; sets fragments internally
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-exec"></a>}}
-\if{latex}{\out{\hypertarget{method-exec}{}}}
+\if{html}{\out{<a id="method-GraphqlClient-exec"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-exec}{}}}
 \subsection{Method \code{exec()}}{
 execute the query
 \subsection{Usage}{
@@ -343,8 +343,8 @@ character string of response, if successful
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-prep_query"></a>}}
-\if{latex}{\out{\hypertarget{method-prep_query}{}}}
+\if{html}{\out{<a id="method-GraphqlClient-prep_query"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-prep_query}{}}}
 \subsection{Method \code{prep_query()}}{
 not used right now
 \subsection{Usage}{
