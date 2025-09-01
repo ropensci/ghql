@@ -24,4 +24,4 @@
 #'
 #' [Fragment] is an interface to creating GraphQL fragments,
 #' which works together with [GraphqlClient]
-NULL
+"_PACKAGE"

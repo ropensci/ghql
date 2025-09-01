@@ -14,8 +14,8 @@ Description: A 'GraphQL' client, with an R6 interface for initializing a
     checked with the 'libgraphqlparser' C++ parser via the 'graphql'
     package.
 License: MIT + file LICENSE
-URL: https://github.com/ropensci/ghql (devel)
-    https://docs.ropensci.org/ghql/ (docs)
+URL: https://docs.ropensci.org/ghql/,
+    https://github.com/ropensci/ghql
 BugReports: https://github.com/ropensci/ghql/issues
 Imports:
     crul,
