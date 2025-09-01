@@ -1,24 +1,26 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "ghql",
-  "description": "General purpose GraphQL client.",
-  "name": "ghql: General Purpose GraphQL Client",
+  "description": "A 'GraphQL' client, with an R6 interface for initializing a connection to a 'GraphQL' instance, and methods for constructing queries, including fragments and parameterized queries. Queries are checked with the 'libgraphqlparser' C++ parser via the 'graphql' package.",
+  "name": "ghql: General Purpose 'GraphQL' Client",
+  "relatedLink": "https://docs.ropensci.org/ghql/",
   "codeRepository": "https://github.com/ropensci/ghql",
-  "relatedLink": "https://docs.ropensci.org/ghql",
   "issueTracker": "https://github.com/ropensci/ghql/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.1.099",
+  "version": "0.1.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 Patched (2020-02-04 r77774)",
+  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -26,18 +28,22 @@
       "familyName": "Chamberlain",
       "email": "myrmecocystus@gmail.com",
       "@id": "https://orcid.org/0000-0003-1444-9135"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Mark",
+      "familyName": "Padgham",
+      "email": "mark.padgham@email.com",
+      "@id": "https://orcid.org/0000-0003-2172-5265"
     }
   ],
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
-      "givenName": "Scott",
-      "familyName": "Chamberlain",
-      "email": "myrmecocystus@gmail.com",
-      "@id": "https://orcid.org/0000-0003-1444-9135"
+      "givenName": "Mark",
+      "familyName": "Padgham",
+      "email": "mark.padgham@email.com",
+      "@id": "https://orcid.org/0000-0003-2172-5265"
     }
   ],
   "softwareSuggestions": [
@@ -54,8 +60,8 @@
       "sameAs": "https://CRAN.R-project.org/package=testthat"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "crul",
       "name": "crul",
@@ -67,7 +73,19 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=crul"
     },
-    {
+    "2": {
+      "@type": "SoftwareApplication",
+      "identifier": "graphql",
+      "name": "graphql",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=graphql"
+    },
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
@@ -79,7 +97,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "R6",
       "name": "R6",
@@ -91,40 +109,14 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=R6"
     },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "graphql",
-      "name": "graphql",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=graphql"
-    }
-  ],
+    "SystemRequirements": null
+  },
   "applicationCategory": "Web",
   "isPartOf": "https://ropensci.org",
-  "keywords": [
-    "http",
-    "API",
-    "web-services",
-    "curl",
-    "data",
-    "GraphQL",
-    "graphql",
-    "graphql-client",
-    "rstats",
-    "r",
-    "graphql-api",
-    "r-package"
-  ],
+  "keywords": ["http", "API", "web-services", "curl", "data", "GraphQL", "graphql", "graphql-client", "rstats", "r", "graphql-api", "r-package"],
+  "fileSize": "52.401KB",
+  "releaseNotes": "https://github.com/ropensci/ghql/blob/main/NEWS.md",
   "readme": "https://github.com/ropensci/ghql/blob/master/README.md",
-  "fileSize": "12.665KB",
-  "contIntegration": [
-    "https://travis-ci.org/ropensci/ghql",
-    "https://codecov.io/github/ropensci/ghql?branch=master"
-  ],
-  "releaseNotes": "https://github.com/ropensci/ghql/blob/master/NEWS.md"
+  "contIntegration": ["https://github.com/ropensci/ghql/actions?query=workflow%3AR-check", "https://codecov.io/github/ropensci/ghql?branch=master"],
+  "developmentStatus": "https://www.repostatus.org/#active"
 }

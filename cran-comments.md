@@ -1,23 +1,9 @@
-## Test environments
+# CRAN notes for ghql_0.1.2 submission
 
-* local OS X install, R 3.6.2 patched
-* ubuntu 16.04 (on travis-ci), R 3.6.2
-* win-builder (devel and release)
+This submission is from new maintainer, Mark Padgham <mark.padgham@email.com>, replacing previous maintainer, Scott Chamberlain <myrmecocystus@gmail.com>. The submission updates all documentation as requested by CRAN.
 
-## R CMD check results
+Other than these, this submission generates no additional notes, and no warnings on:
 
-0 errors | 0 warnings | 1 note
-
-New submission
-
-## Reverse dependencies
-
-This is a new submission, so there are no reverse dependencies.
-
----
-
-This is a new release. I have read and agree to the the 
-CRAN policies at https://cran.r-project.org/web/packages/policies.html
-
-Thanks!
-Scott Chamberlain
+* Ubuntu 24.04: R-release, R-devel
+* win-builder (R-release, R-devel, R-oldrelease)
+- clang UBSAN on R-devel
