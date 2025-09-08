@@ -114,9 +114,9 @@
   "applicationCategory": "Web",
   "isPartOf": "https://ropensci.org",
   "keywords": ["http", "API", "web-services", "curl", "data", "GraphQL", "graphql", "graphql-client", "rstats", "r", "graphql-api", "r-package"],
-  "fileSize": "52.401KB",
+  "fileSize": "63594.427KB",
   "releaseNotes": "https://github.com/ropensci/ghql/blob/main/NEWS.md",
   "readme": "https://github.com/ropensci/ghql/blob/master/README.md",
-  "contIntegration": ["https://github.com/ropensci/ghql/actions?query=workflow%3AR-check", "https://codecov.io/github/ropensci/ghql?branch=master"],
+  "contIntegration": ["https://github.com/ropensci/ghql/actions?query=workflow%3AR-check", "https://app.codecov.io/github/ropensci/ghql?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active"
 }

@@ -1,7 +1,7 @@
 Type: Package
 Package: ghql
 Title: General Purpose 'GraphQL' Client
-Version: 0.1.1.099
+Version: 0.1.2
 Authors@R: c(
     person("Scott", "Chamberlain", , "myrmecocystus@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0003-1444-9135")),
