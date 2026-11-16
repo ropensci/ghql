@@ -228,9 +228,8 @@ GraphqlClient <- R6::R6Class(
       if (private$has_variables(body$query)) {
         if (missing(variables))
           stop(sprintf("query has variables and not one passed"), call. = FALSE)
-        else
-          private$verify_variables(body$query, variables)
-          body$variables = ct(variables)
+        private$verify_variables(body$query, variables)
+        body$variables = ct(variables)
       }
       res <- gh_POST(
         self$url,
@@ -295,8 +294,14 @@ GraphqlClient <- R6::R6Class(
           )[[1]]
         )
       )
+      nms <- names(variables)
+      if (is.null(nms) || any(!nzchar(nms))) {
+        stop("all elements of `variables` must be named; ",
+          "to pass several values to one variable, combine them with c(), ",
+          "e.g. list(id = c(1, 2))", call. = FALSE)
+      }
       for (v in vars) {
-        if (!v %in% names(variables))
+        if (!v %in% nms)
           stop(sprintf("variable `%s` is not found in variables", v), call. = FALSE)
       }
     }

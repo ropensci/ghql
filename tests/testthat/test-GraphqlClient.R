@@ -180,3 +180,20 @@ test_that("GraphqlClient construction works with parameters", {
   expect_named(parsed2, "errors")
   expect_match(parsed2$errors$message, "invalid value")
 })
+
+test_that("exec errors on unnamed variables before sending anything", {
+  cli <- GraphqlClient$new(url = "https://example.invalid/graphql")
+  qry <- Query$new()
+  qry$query("q", "query ($id: [Int]) { thing(id: $id) { name } }")
+  expect_error(
+    cli$exec(qry$queries$q, variables = list(id = 401, 184)),
+    "must be named"
+  )
+  expect_error(
+    cli$exec(qry$queries$q, variables = list(401)),
+    "must be named"
+  )
+  priv <- cli$.__enclos_env__$private
+  expect_null(priv$verify_variables("query ($id: [Int]) { thing(id: $id) { name } }",
+    list(id = c(401, 184))))
+})
