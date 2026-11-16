@@ -143,6 +143,25 @@ res <- con$exec(qry$queries$getgeninfo, variables)
 jsonlite::fromJSON(res)
 ```
 
+## Mutations
+
+Mutations work the same way as queries: write the mutation, add it with
+`$query()`, and run it with `$exec()`, passing any variables as a named list.
+Mutations change data on the server, so only run one when you mean to. For
+example, starring a repository through the GitHub API (this needs a token
+with the right scope):
+
+```r
+qry <- Query$new()
+qry$query("star", "
+mutation ($id: ID!) {
+  addStar(input: {starrableId: $id}) {
+    starrable { stargazerCount }
+  }
+}")
+con$exec(qry$queries$star, variables = list(id = "REPOSITORY_NODE_ID"))
+```
+
 ## Example: Datacite
 
 [Datacite](https://datacite.org/) provides DOIs for research data. Check out the 
