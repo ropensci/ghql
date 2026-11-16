@@ -295,7 +295,7 @@ GraphqlClient <- R6::R6Class(
         )
       )
       nms <- names(variables)
-      if (is.null(nms) || any(!nzchar(nms))) {
+      if (is.null(nms) || anyNA(nms) || any(!nzchar(nms))) {
         stop("all elements of `variables` must be named; ",
           "to pass several values to one variable, combine them with c(), ",
           "e.g. list(id = c(1, 2))", call. = FALSE)
