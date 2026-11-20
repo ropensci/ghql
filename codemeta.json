@@ -35,15 +35,22 @@
       "familyName": "Padgham",
       "email": "mark.padgham@email.com",
       "@id": "https://orcid.org/0000-0003-2172-5265"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Christopher",
+      "familyName": "Smolen",
+      "email": "chrispbsmolen@gmail.com",
+      "@id": "https://orcid.org/0009-0002-9537-7961"
     }
   ],
   "maintainer": [
     {
       "@type": "Person",
-      "givenName": "Mark",
-      "familyName": "Padgham",
-      "email": "mark.padgham@email.com",
-      "@id": "https://orcid.org/0000-0003-2172-5265"
+      "givenName": "Christopher",
+      "familyName": "Smolen",
+      "email": "chrispbsmolen@gmail.com",
+      "@id": "https://orcid.org/0009-0002-9537-7961"
     }
   ],
   "softwareSuggestions": [
