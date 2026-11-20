@@ -40,3 +40,10 @@ test_that("Query checks queries - and fails as expected", {
   expect_error(qry$query('x', '{ field(arg:\"\b\") }'),
     "1.13-14: unrecognized character")
 })
+
+test_that("Query accepts mutations", {
+  qry <- Query$new()
+  qry$query("m", "mutation ($id: ID!) { addStar(input: {starrableId: $id}) { clientMutationId } }")
+  expect_is(qry$queries$m, "query")
+  expect_match(qry$queries$m$query, "^mutation")
+})
