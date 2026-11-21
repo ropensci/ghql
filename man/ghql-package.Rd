@@ -33,6 +33,14 @@ Useful links:
 
 }
 \author{
-Scott Chamberlain \email{myrmecocystus@gmail.com}
+\strong{Maintainer}: Christopher Smolen \email{chrispbsmolen@gmail.com} (\href{https://orcid.org/0009-0002-9537-7961}{ORCID})
+
+Authors:
+\itemize{
+  \item Christopher Smolen \email{chrispbsmolen@gmail.com} (\href{https://orcid.org/0009-0002-9537-7961}{ORCID})
+  \item Scott Chamberlain \email{myrmecocystus@gmail.com} (\href{https://orcid.org/0000-0003-1444-9135}{ORCID})
+  \item Mark Padgham \email{mark.padgham@email.com} (\href{https://orcid.org/0000-0003-2172-5265}{ORCID})
+}
+
 }
 \keyword{package}

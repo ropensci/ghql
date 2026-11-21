@@ -131,232 +131,241 @@ cli$exec(qry$queries$queryfrag)
 }
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{url}}{(character) list of fragments}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{url}}{(character) list of fragments}
 
-\item{\code{headers}}{list of named headers}
+    \item{\code{headers}}{list of named headers}
 
-\item{\code{schema}}{holds schema}
+    \item{\code{schema}}{holds schema}
 
-\item{\code{result}}{holds result from http request}
+    \item{\code{result}}{holds result from http request}
 
-\item{\code{fragments}}{(list) list of fragments}
-}
-\if{html}{\out{</div>}}
+    \item{\code{fragments}}{(list) list of fragments}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-GraphqlClient-new}{\code{GraphqlClient$new()}}
-\item \href{#method-GraphqlClient-print}{\code{GraphqlClient$print()}}
-\item \href{#method-GraphqlClient-ping}{\code{GraphqlClient$ping()}}
-\item \href{#method-GraphqlClient-load_schema}{\code{GraphqlClient$load_schema()}}
-\item \href{#method-GraphqlClient-dump_schema}{\code{GraphqlClient$dump_schema()}}
-\item \href{#method-GraphqlClient-schema2json}{\code{GraphqlClient$schema2json()}}
-\item \href{#method-GraphqlClient-fragment}{\code{GraphqlClient$fragment()}}
-\item \href{#method-GraphqlClient-exec}{\code{GraphqlClient$exec()}}
-\item \href{#method-GraphqlClient-prep_query}{\code{GraphqlClient$prep_query()}}
-}
+  \itemize{
+    \item \href{#method-GraphqlClient-initialize}{\code{GraphqlClient$new()}}
+    \item \href{#method-GraphqlClient-print}{\code{GraphqlClient$print()}}
+    \item \href{#method-GraphqlClient-ping}{\code{GraphqlClient$ping()}}
+    \item \href{#method-GraphqlClient-load_schema}{\code{GraphqlClient$load_schema()}}
+    \item \href{#method-GraphqlClient-dump_schema}{\code{GraphqlClient$dump_schema()}}
+    \item \href{#method-GraphqlClient-schema2json}{\code{GraphqlClient$schema2json()}}
+    \item \href{#method-GraphqlClient-fragment}{\code{GraphqlClient$fragment()}}
+    \item \href{#method-GraphqlClient-exec}{\code{GraphqlClient$exec()}}
+    \item \href{#method-GraphqlClient-prep_query}{\code{GraphqlClient$prep_query()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-GraphqlClient-new"></a>}}
-\if{latex}{\out{\hypertarget{method-GraphqlClient-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new `GraphqlClient` object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$new(url, headers)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-GraphqlClient-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-GraphqlClient-initialize}{}}}
+\subsection{\code{GraphqlClient$new()}}{
+  Create a new `GraphqlClient` object
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GraphqlClient$new(url, headers)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{url}}{(character) URL for the GraphQL schema}
+      \item{\code{headers}}{Any acceptable headers, a named list. See examples}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new `GraphqlClient` object
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{url}}{(character) URL for the GraphQL schema}
-
-\item{\code{headers}}{Any acceptable headers, a named list. See examples}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new `GraphqlClient` object
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GraphqlClient-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GraphqlClient-print}{}}}
-\subsection{Method \code{print()}}{
-print method for the `GraphqlClient` class
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$print(x, ...)}\if{html}{\out{</div>}}
+\subsection{\code{GraphqlClient$print()}}{
+  print method for the `GraphqlClient` class
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GraphqlClient$print(x, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{self}
+      \item{\code{...}}{ignored}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{self}
-
-\item{\code{...}}{ignored}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GraphqlClient-ping"></a>}}
 \if{latex}{\out{\hypertarget{method-GraphqlClient-ping}{}}}
-\subsection{Method \code{ping()}}{
-ping the GraphQL server
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$ping(...)}\if{html}{\out{</div>}}
+\subsection{\code{GraphqlClient$ping()}}{
+  ping the GraphQL server
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GraphqlClient$ping(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{curl options passed on to [crul::verb-HEAD]}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    `TRUE` if successful response, `FALSE` otherwise
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{curl options passed on to [crul::verb-HEAD]}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-`TRUE` if successful response, `FALSE` otherwise
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GraphqlClient-load_schema"></a>}}
 \if{latex}{\out{\hypertarget{method-GraphqlClient-load_schema}{}}}
-\subsection{Method \code{load_schema()}}{
-load schema, from URL or local file
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$load_schema(schema_url = NULL, schema_file = NULL, ...)}\if{html}{\out{</div>}}
+\subsection{\code{GraphqlClient$load_schema()}}{
+  load schema, from URL or local file
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GraphqlClient$load_schema(schema_url = NULL, schema_file = NULL, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{schema_url}}{(character) url for a schema file}
+      \item{\code{schema_file}}{(character) path to a schema file}
+      \item{\code{...}}{curl options passed on to [crul::verb-GET]}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    nothing, loads schema into `$schema` slot
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{schema_url}}{(character) url for a schema file}
-
-\item{\code{schema_file}}{(character) path to a schema file}
-
-\item{\code{...}}{curl options passed on to [crul::verb-GET]}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-nothing, loads schema into `$schema` slot
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GraphqlClient-dump_schema"></a>}}
 \if{latex}{\out{\hypertarget{method-GraphqlClient-dump_schema}{}}}
-\subsection{Method \code{dump_schema()}}{
-dump schema to a local file
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$dump_schema(file)}\if{html}{\out{</div>}}
+\subsection{\code{GraphqlClient$dump_schema()}}{
+  dump schema to a local file
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GraphqlClient$dump_schema(file)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{file}}{(character) path to a file}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    nothing, writes schema to `file`
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{file}}{(character) path to a file}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-nothing, writes schema to `file`
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GraphqlClient-schema2json"></a>}}
 \if{latex}{\out{\hypertarget{method-GraphqlClient-schema2json}{}}}
-\subsection{Method \code{schema2json()}}{
-convert schema to JSON
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$schema2json(...)}\if{html}{\out{</div>}}
+\subsection{\code{GraphqlClient$schema2json()}}{
+  convert schema to JSON
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GraphqlClient$schema2json(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{options passed on to [jsonlite::toJSON()]}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    json
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{options passed on to [jsonlite::toJSON()]}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-json
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GraphqlClient-fragment"></a>}}
 \if{latex}{\out{\hypertarget{method-GraphqlClient-fragment}{}}}
-\subsection{Method \code{fragment()}}{
-load schema, from URL or local file
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$fragment(name, x)}\if{html}{\out{</div>}}
+\subsection{\code{GraphqlClient$fragment()}}{
+  load schema, from URL or local file
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GraphqlClient$fragment(name, x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{(character) fragment name}
+      \item{\code{x}}{(character) the fragment}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    nothing returned; sets fragments internally
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{(character) fragment name}
-
-\item{\code{x}}{(character) the fragment}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-nothing returned; sets fragments internally
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GraphqlClient-exec"></a>}}
 \if{latex}{\out{\hypertarget{method-GraphqlClient-exec}{}}}
-\subsection{Method \code{exec()}}{
-execute the query
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$exec(
+\subsection{\code{GraphqlClient$exec()}}{
+  execute the query
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GraphqlClient$exec(
   query,
   variables,
   encoding = "UTF-8",
   response_headers = FALSE,
   ...
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{query}}{(character) a query, of class `query` or `fragment`}
-
-\item{\code{variables}}{(list) named list with query variables values}
-
-\item{\code{encoding}}{(character) encoding to use to parse the response. passed
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{query}}{(character) a query, of class `query` or `fragment`}
+      \item{\code{variables}}{(list) named list with query variables values}
+      \item{\code{encoding}}{(character) encoding to use to parse the response. passed
 on to [crul::HttpResponse] `$parse()` method. default: "UTF-8"}
-
-\item{\code{response_headers}}{If `TRUE`, include the response headers as an
+      \item{\code{response_headers}}{If `TRUE`, include the response headers as an
 attribute of the return object.}
+      \item{\code{...}}{curl options passed on to [crul::verb-POST]}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    character string of response, if successful
+  }
+}
 
-\item{\code{...}}{curl options passed on to [crul::verb-POST]}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-character string of response, if successful
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GraphqlClient-prep_query"></a>}}
 \if{latex}{\out{\hypertarget{method-GraphqlClient-prep_query}{}}}
-\subsection{Method \code{prep_query()}}{
-not used right now
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GraphqlClient$prep_query(query)}\if{html}{\out{</div>}}
+\subsection{\code{GraphqlClient$prep_query()}}{
+  not used right now
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GraphqlClient$prep_query(query)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{query}}{(character) a query, of class `query` or `fragment`}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{query}}{(character) a query, of class `query` or `fragment`}
-}
-\if{html}{\out{</div>}}
-}
-}
 }
