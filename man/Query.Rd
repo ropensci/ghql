@@ -126,105 +126,109 @@ qry$queries$queryfrag
 }
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{queries}}{(list) list of queries}
-}
-\if{html}{\out{</div>}}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{queries}}{(list) list of queries}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Query-print}{\code{Query$print()}}
-\item \href{#method-Query-query}{\code{Query$query()}}
-\item \href{#method-Query-add_fragment}{\code{Query$add_fragment()}}
-\item \href{#method-Query-parse2json}{\code{Query$parse2json()}}
-}
+  \itemize{
+    \item \href{#method-Query-print}{\code{Query$print()}}
+    \item \href{#method-Query-query}{\code{Query$query()}}
+    \item \href{#method-Query-add_fragment}{\code{Query$add_fragment()}}
+    \item \href{#method-Query-parse2json}{\code{Query$parse2json()}}
+  }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Query-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Query-print}{}}}
-\subsection{Method \code{print()}}{
-print method for the `Query` class
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Query$print(x, ...)}\if{html}{\out{</div>}}
+\subsection{\code{Query$print()}}{
+  print method for the `Query` class
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Query$print(x, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{self}
+      \item{\code{...}}{ignored}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{self}
-
-\item{\code{...}}{ignored}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Query-query"></a>}}
 \if{latex}{\out{\hypertarget{method-Query-query}{}}}
-\subsection{Method \code{query()}}{
-define query in a character string
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Query$query(name, x)}\if{html}{\out{</div>}}
+\subsection{\code{Query$query()}}{
+  define query in a character string
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Query$query(name, x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{(character) name of the query}
+      \item{\code{x}}{(character) the query}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    nothing returned; sets query with `name` internally
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{(character) name of the query}
-
-\item{\code{x}}{(character) the query}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-nothing returned; sets query with `name` internally
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Query-add_fragment"></a>}}
 \if{latex}{\out{\hypertarget{method-Query-add_fragment}{}}}
-\subsection{Method \code{add_fragment()}}{
-add a fragment to a query
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Query$add_fragment(query_name, fragment)}\if{html}{\out{</div>}}
+\subsection{\code{Query$add_fragment()}}{
+  add a fragment to a query
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Query$add_fragment(query_name, fragment)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{query_name}}{(character) the query name to add the fragment to}
+      \item{\code{fragment}}{(character) the fragment itself}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    nothing returned; sets the fragment with the query
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{query_name}}{(character) the query name to add the fragment to}
-
-\item{\code{fragment}}{(character) the fragment itself}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-nothing returned; sets the fragment with the query
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Query-parse2json"></a>}}
 \if{latex}{\out{\hypertarget{method-Query-parse2json}{}}}
-\subsection{Method \code{parse2json()}}{
-parse query string with libgraphqlparser and get back JSON
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Query$parse2json(query, parse_schema = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{query}}{(character) a query to parse}
-
-\item{\code{parse_schema}}{(logical) enable schema definition parsing?
+\subsection{\code{Query$parse2json()}}{
+  parse query string with libgraphqlparser and get back JSON
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Query$parse2json(query, parse_schema = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{query}}{(character) a query to parse}
+      \item{\code{parse_schema}}{(logical) enable schema definition parsing?
 default: `FAlSE`}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    adf
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-adf
-}
-}
+
 }

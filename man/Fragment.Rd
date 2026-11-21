@@ -42,58 +42,60 @@ frag$fragments$Watchers
 frag$fragments$Stargazers
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{fragments}}{(list) list of fragments}
-}
-\if{html}{\out{</div>}}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{fragments}}{(list) list of fragments}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Fragment-print}{\code{Fragment$print()}}
-\item \href{#method-Fragment-fragment}{\code{Fragment$fragment()}}
-}
+  \itemize{
+    \item \href{#method-Fragment-print}{\code{Fragment$print()}}
+    \item \href{#method-Fragment-fragment}{\code{Fragment$fragment()}}
+  }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Fragment-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Fragment-print}{}}}
-\subsection{Method \code{print()}}{
-print method for the `Fragment` class
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Fragment$print(x, ...)}\if{html}{\out{</div>}}
+\subsection{\code{Fragment$print()}}{
+  print method for the `Fragment` class
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Fragment$print(x, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{self}
+      \item{\code{...}}{ignored}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{self}
-
-\item{\code{...}}{ignored}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Fragment-fragment"></a>}}
 \if{latex}{\out{\hypertarget{method-Fragment-fragment}{}}}
-\subsection{Method \code{fragment()}}{
-create a fragment by name
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Fragment$fragment(name, x)}\if{html}{\out{</div>}}
+\subsection{\code{Fragment$fragment()}}{
+  create a fragment by name
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Fragment$fragment(name, x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{(character) fragment name}
+      \item{\code{x}}{(character) the fragment}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    nothing returned; sets fragments internally
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{(character) fragment name}
-
-\item{\code{x}}{(character) the fragment}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-nothing returned; sets fragments internally
-}
-}
 }

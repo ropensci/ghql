@@ -8,5 +8,7 @@ export(Query)
 importFrom(R6,R6Class)
 importFrom(crul,HttpClient)
 importFrom(graphql,graphql2json)
-importFrom(jsonlite,fromJSON)
-importFrom(jsonlite,toJSON)
+importFrom(jsonlite,
+  fromJSON,
+  toJSON
+)
