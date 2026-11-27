@@ -3,7 +3,7 @@
 #' Information on Potential Pipeline
 #'
 #' This function figures out whether it is called from within a pipeline.
-#' It does so by examining the parent evironment of the active system frames,
+#' It does so by examining the parent environment of the active system frames,
 #' and whether any of these are the same as the enclosing environment of
 #' \code{\%>\%}.
 #'

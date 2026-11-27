@@ -1,6 +1,6 @@
 #' Execute a GraphQL query
 #'
-#' @keywords itnernal
+#' @keywords internal
 #' @param x \code{json} object or character string with json data.
 #' @param ... character specification of jq query. Each element in code{...}
 #'   will be combined with " | ", which is convenient for long queries.
@@ -31,7 +31,7 @@ print.ql <- function(x, ...) {
   cat(jsonlite::prettify(combine(x)))
 }
 
-#' Helper function for createing a jq query string from ellipses.
+#' Helper function for creating a jq query string from ellipses.
 #' @noRd
 query_from_dots <- function(...) {
   dots <- list(...)
