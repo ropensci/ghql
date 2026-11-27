@@ -253,9 +253,6 @@ GraphqlClient <- R6::R6Class(
   ),
 
   private = list(
-    # @field .var_regex variable regexp 
-    .var_regex = '\\$([[:alpha:]_]\\w*)',
-
     # @description rewrite query if there is fragments, leave equal otherwise
     # @param x (character) a query, of class `query` or `fragment`
     # @return a graphql query language character vector
@@ -273,27 +270,38 @@ GraphqlClient <- R6::R6Class(
         paste(x$query, frag)
       }
     },
-    
+
+    # @description extract variable names from a GraphQL query AST
+    # @param query (character) a graphql query language character vector
+    extract_variables = function(query) {
+      ast <- jsonlite::fromJSON(
+        graphql::graphql2json(query),
+        simplifyVector = FALSE
+      )
+      vars <- character()
+      walk <- function(node) {
+        if (!is.list(node)) return()
+        if (identical(node$kind, "Variable") && is.character(node$name$value)) {
+          vars <<- c(vars, node$name$value)
+          return()
+        }
+        for (child in node) walk(child)
+      }
+      walk(ast)
+      unique(vars)
+    },
+
     # @description check if query has variables
     # @param query (character) a graphql query language character vector
-    has_variables = function(query){
-      grepl(private$.var_regex, query)
+    has_variables = function(query) {
+      length(private$extract_variables(query)) > 0L
     },
-    
+
     # @description check if query variables are given on `variables`
     # @param query (character) a graphql query language character vector
     # @param variables (list) variables named list
     verify_variables = function(query, variables) {
-      vars <- sub("\\$", "",
-        unique(
-          regmatches(
-            query, 
-            gregexpr(
-              private$.var_regex, query
-            )
-          )[[1]]
-        )
-      )
+      vars <- private$extract_variables(query)
       nms <- names(variables)
       if (is.null(nms) || anyNA(nms) || any(!nzchar(nms))) {
         stop("all elements of `variables` must be named; ",
