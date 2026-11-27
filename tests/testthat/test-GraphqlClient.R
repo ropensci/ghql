@@ -197,3 +197,30 @@ test_that("exec errors on unnamed variables before sending anything", {
   expect_null(priv$verify_variables("query ($id: [Int]) { thing(id: $id) { name } }",
     list(id = c(401, 184))))
 })
+
+test_that("variable detection ignores $ tokens in string literals and comments", {
+  cli <- GraphqlClient$new(url = "https://example.invalid/graphql")
+  priv <- cli$.__enclos_env__$private
+
+  q_str <- '{ search(query: "$USD") { id } }'
+  q_cmt <- "# comment mentioning $foo\n{ viewer { login } }"
+  expect_false(priv$has_variables(q_str))
+  expect_false(priv$has_variables(q_cmt))
+
+  q_mixed <- 'query ($q: String!) { search(query: $q, note: "$USD") { id } } # $foo'
+  expect_true(priv$has_variables(q_mixed))
+  expect_null(priv$verify_variables(q_mixed, list(q = "test")))
+  expect_error(
+    priv$verify_variables(q_mixed, list(other = "test")),
+    "variable `q` is not found"
+  )
+
+  qry <- Query$new()
+  qry$query("with_frag", "query ($n: Int!) { viewer { ...R } }")
+  frag <- Fragment$new()
+  frag$fragment("R", 'fragment on User { repos(first: $n, tag: "$USD") { id } }')
+  qry$add_fragment("with_frag", frag$fragments$R)
+  prepped <- cli$prep_query(qry$queries$with_frag)
+  expect_true(priv$has_variables(prepped))
+  expect_null(priv$verify_variables(prepped, list(n = 5)))
+})
